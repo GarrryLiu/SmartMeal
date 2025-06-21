@@ -23,7 +23,7 @@ export default function MealPage() {
         {/* Options Section */}
         <div className="max-w-4xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Link href="/meal-plan" className="card group cursor-pointer">
+            <Link href="/meal-plan/preferences" className="card group cursor-pointer">
               <div className="flex items-center space-x-4 mb-4">
                 <MdRestaurant className="w-8 h-8 text-blue-400 group-hover:text-blue-300 transition-colors" />
                 <h2 className="text-2xl font-semibold text-white group-hover:text-gray-100 transition-colors">

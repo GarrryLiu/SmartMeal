@@ -1,0 +1,234 @@
+{
+  "recipes": [
+    {
+      "id": "mediterranean-quinoa-bowl",
+      "name": "Mediterranean Quinoa Bowl",
+      "cuisine": "mediterranean",
+      "cookingTime": 25,
+      "servings": 4,
+      "calories": 420,
+      "difficulty": "easy",
+      "image": "🥗",
+      "description": "A vibrant, nutritious bowl packed with Mediterranean flavors and fresh ingredients.",
+      "ingredients": ["quinoa", "tomatoes", "spinach", "olive-oil", "garlic", "onions", "bell-peppers"],
+      "instructions": [
+        "Rinse quinoa and cook according to package directions",
+        "Heat olive oil in a large pan and sauté garlic and onions",
+        "Add bell peppers and cook for 5 minutes",
+        "Add spinach and tomatoes, cook until spinach wilts",
+        "Serve over cooked quinoa and drizzle with extra olive oil"
+      ],
+      "nutrition": {
+        "protein": 15,
+        "carbs": 58,
+        "fat": 12,
+        "fiber": 8
+      },
+      "tags": ["vegetarian", "gluten-free", "high-fiber"]
+    },
+    {
+      "id": "herb-crusted-salmon",
+      "name": "Herb-Crusted Salmon with Roasted Vegetables",
+      "cuisine": "american",
+      "cookingTime": 30,
+      "servings": 4,
+      "calories": 385,
+      "difficulty": "medium",
+      "image": "🐟",
+      "description": "Perfectly seasoned salmon with a crispy herb crust, served with colorful roasted vegetables.",
+      "ingredients": ["salmon", "broccoli", "sweet-potatoes", "olive-oil", "garlic", "lemons"],
+      "instructions": [
+        "Preheat oven to 425°F (220°C)",
+        "Cut sweet potatoes and broccoli into bite-sized pieces",
+        "Toss vegetables with olive oil, salt, and pepper",
+        "Season salmon with herbs, garlic, and lemon zest",
+        "Roast vegetables for 15 minutes, then add salmon to the pan",
+        "Cook for another 12-15 minutes until salmon flakes easily"
+      ],
+      "nutrition": {
+        "protein": 35,
+        "carbs": 28,
+        "fat": 18,
+        "fiber": 6
+      },
+      "tags": ["high-protein", "omega-3", "gluten-free"]
+    },
+    {
+      "id": "spicy-tofu-stir-fry",
+      "name": "Spicy Tofu and Vegetable Stir-Fry",
+      "cuisine": "chinese",
+      "cookingTime": 20,
+      "servings": 3,
+      "calories": 295,
+      "difficulty": "easy",
+      "image": "🥢",
+      "description": "A quick and flavorful stir-fry with crispy tofu and fresh vegetables in a savory sauce.",
+      "ingredients": ["tofu", "broccoli", "bell-peppers", "garlic", "onions", "brown-rice"],
+      "instructions": [
+        "Press tofu to remove excess water, then cube",
+        "Heat oil in a wok or large pan over high heat",
+        "Stir-fry tofu until golden and crispy, remove and set aside",
+        "Add vegetables to the pan and stir-fry for 3-4 minutes",
+        "Return tofu to pan, add sauce and toss to combine",
+        "Serve immediately over brown rice"
+      ],
+      "nutrition": {
+        "protein": 18,
+        "carbs": 35,
+        "fat": 12,
+        "fiber": 7
+      },
+      "tags": ["vegan", "high-protein", "quick"]
+    },
+    {
+      "id": "greek-chicken-bowl",
+      "name": "Greek Chicken Power Bowl",
+      "cuisine": "mediterranean",
+      "cookingTime": 35,
+      "servings": 4,
+      "calories": 465,
+      "difficulty": "medium",
+      "image": "🍗",
+      "description": "A protein-packed bowl with marinated chicken, fresh vegetables, and Greek flavors.",
+      "ingredients": ["chicken-breast", "quinoa", "tomatoes", "spinach", "olive-oil", "lemons", "greek-yogurt"],
+      "instructions": [
+        "Marinate chicken in olive oil, lemon juice, and herbs for 30 minutes",
+        "Cook quinoa according to package directions",
+        "Grill or pan-sear chicken until cooked through",
+        "Prepare fresh vegetables and arrange in bowls",
+        "Slice chicken and place over quinoa and vegetables",
+        "Serve with a dollop of Greek yogurt"
+      ],
+      "nutrition": {
+        "protein": 42,
+        "carbs": 38,
+        "fat": 16,
+        "fiber": 5
+      },
+      "tags": ["high-protein", "gluten-free", "meal-prep"]
+    },
+    {
+      "id": "veggie-loaded-omelet",
+      "name": "Veggie-Loaded Garden Omelet",
+      "cuisine": "american",
+      "cookingTime": 15,
+      "servings": 2,
+      "calories": 285,
+      "difficulty": "easy",
+      "image": "🍳",
+      "description": "A fluffy omelet packed with fresh vegetables and herbs for a nutritious breakfast or lunch.",
+      "ingredients": ["eggs", "spinach", "tomatoes", "bell-peppers", "onions", "olive-oil"],
+      "instructions": [
+        "Beat eggs in a bowl with salt and pepper",
+        "Heat olive oil in a non-stick pan over medium heat",
+        "Sauté onions and bell peppers until soft",
+        "Add spinach and tomatoes, cook until spinach wilts",
+        "Pour beaten eggs over vegetables",
+        "Fold omelet in half when eggs are set and serve immediately"
+      ],
+      "nutrition": {
+        "protein": 20,
+        "carbs": 8,
+        "fat": 18,
+        "fiber": 3
+      },
+      "tags": ["vegetarian", "high-protein", "quick", "low-carb"]
+    },
+    {
+      "id": "keto-avocado-bowl",
+      "name": "Keto Avocado Power Bowl",
+      "cuisine": "american",
+      "cookingTime": 10,
+      "servings": 2,
+      "calories": 520,
+      "difficulty": "easy",
+      "image": "🥑",
+      "description": "A rich, satisfying keto-friendly bowl with healthy fats and minimal carbs.",
+      "ingredients": ["avocados", "eggs", "spinach", "olive-oil", "almonds"],
+      "instructions": [
+        "Halve and pit avocados, scoop out some flesh to create wells",
+        "Crack an egg into each avocado half",
+        "Bake at 375°F for 15-20 minutes until egg whites are set",
+        "Sauté spinach with olive oil and garlic",
+        "Serve avocados over spinach, topped with crushed almonds"
+      ],
+      "nutrition": {
+        "protein": 16,
+        "carbs": 12,
+        "fat": 45,
+        "fiber": 12
+      },
+      "tags": ["keto", "vegetarian", "high-fat", "low-carb"]
+    },
+    {
+      "id": "thai-curry-bowl",
+      "name": "Thai Green Curry Bowl",
+      "cuisine": "thai",
+      "cookingTime": 25,
+      "servings": 4,
+      "calories": 380,
+      "difficulty": "medium",
+      "image": "🍛",
+      "description": "A fragrant and spicy Thai curry with vegetables and your choice of protein.",
+      "ingredients": ["brown-rice", "broccoli", "bell-peppers", "onions", "garlic", "coconut-oil"],
+      "instructions": [
+        "Cook brown rice according to package directions",
+        "Heat coconut oil in a large pan",
+        "Sauté onions and garlic until fragrant",
+        "Add curry paste and cook for 1 minute",
+        "Add vegetables and coconut milk, simmer for 15 minutes",
+        "Serve over brown rice with fresh herbs"
+      ],
+      "nutrition": {
+        "protein": 12,
+        "carbs": 48,
+        "fat": 18,
+        "fiber": 8
+      },
+      "tags": ["vegan", "spicy", "dairy-free"]
+    },
+    {
+      "id": "protein-packed-smoothie-bowl",
+      "name": "Protein-Packed Berry Smoothie Bowl",
+      "cuisine": "american",
+      "cookingTime": 5,
+      "servings": 1,
+      "calories": 340,
+      "difficulty": "easy",
+      "image": "🍓",
+      "description": "A thick, creamy smoothie bowl topped with nuts, seeds, and fresh fruit.",
+      "ingredients": ["greek-yogurt", "protein-powder", "almonds", "chia-seeds"],
+      "instructions": [
+        "Blend frozen berries with Greek yogurt and protein powder",
+        "Pour into a bowl and smooth the top",
+        "Top with sliced almonds and chia seeds",
+        "Add fresh berries and a drizzle of honey if desired",
+        "Serve immediately for best texture"
+      ],
+      "nutrition": {
+        "protein": 35,
+        "carbs": 25,
+        "fat": 12,
+        "fiber": 8
+      },
+      "tags": ["high-protein", "vegetarian", "quick", "breakfast"]
+    }
+  ],
+  "cuisineTypes": [
+    { "id": "american", "name": "American", "icon": "🇺🇸" },
+    { "id": "mediterranean", "name": "Mediterranean", "icon": "🌊" },
+    { "id": "chinese", "name": "Chinese", "icon": "🥢" },
+    { "id": "thai", "name": "Thai", "icon": "🌶️" },
+    { "id": "italian", "name": "Italian", "icon": "🍝" },
+    { "id": "mexican", "name": "Mexican", "icon": "🌮" },
+    { "id": "indian", "name": "Indian", "icon": "🍛" },
+    { "id": "japanese", "name": "Japanese", "icon": "🍱" }
+  ],
+  "goalTypes": [
+    { "id": "weight-loss", "name": "Weight Loss", "icon": "⚖️" },
+    { "id": "muscle-gain", "name": "Muscle Gain", "icon": "💪" },
+    { "id": "maintenance", "name": "Maintenance", "icon": "⚖️" },
+    { "id": "energy-boost", "name": "Energy Boost", "icon": "⚡" },
+    { "id": "heart-health", "name": "Heart Health", "icon": "❤️" }
+  ]
+} 
