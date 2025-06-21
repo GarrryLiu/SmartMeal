@@ -2,8 +2,15 @@ from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 
 # Path A Models - Recipe Generation from Receipt
+class IngredientDetail(BaseModel):
+    name: str
+    quantity: Optional[float] = None
+    unit: Optional[str] = None
+    price: Optional[float] = None
+
 class RecipeRequest(BaseModel):
-    items: List[str]
+    items: List[str]  # Keep for backward compatibility
+    detailed_items: Optional[List[IngredientDetail]] = None
     goal: Optional[str] = None
 
 class Recipe(BaseModel):

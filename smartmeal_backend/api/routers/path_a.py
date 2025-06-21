@@ -59,10 +59,25 @@ async def generate_recipes_from_receipt(request: RecipeRequest):
         
         # Call Gemini AI service
         print(f"Calling Gemini AI with style: {style}")
+        
+        # Convert detailed items to dict format if available
+        detailed_ingredients = None
+        if request.detailed_items:
+            detailed_ingredients = [
+                {
+                    'name': item.name,
+                    'quantity': item.quantity,
+                    'unit': item.unit,
+                    'price': item.price
+                }
+                for item in request.detailed_items
+            ]
+        
         ai_response = gemini_service.generate_recipes_from_ingredients(
             ingredients=request.items,
             style=style,
-            preferences=preferences
+            preferences=preferences,
+            detailed_ingredients=detailed_ingredients
         )
         
         # Parse the AI response into Recipe objects

@@ -21,12 +21,23 @@ class GeminiService:
         self, 
         ingredients: List[str], 
         style: str = "default",
-        preferences: Optional[Dict[str, Any]] = None
+        preferences: Optional[Dict[str, Any]] = None,
+        detailed_ingredients: Optional[List[Dict[str, Any]]] = None
     ) -> Dict[str, Any]:
         """
         Generate recipes based on ingredients using Gemini AI REST API
         """
         # Build the prompt using our prompt templates
+        if detailed_ingredients:
+            # Format detailed ingredients for the prompt
+            ingredient_text = []
+            for ing in detailed_ingredients:
+                text = ing['name']
+                if ing.get('quantity') and ing.get('unit'):
+                    text += f" ({ing['quantity']} {ing['unit']})"
+                ingredient_text.append(text)
+            ingredients = ingredient_text
+        
         user_prompt = get_recipe_prompt(
             ingredients=ingredients,
             style=style,

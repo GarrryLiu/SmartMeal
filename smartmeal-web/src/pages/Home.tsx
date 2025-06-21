@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
+import ReceiptInput from '../components/ReceiptInput';
 import './Home.css';
 
 const Home: React.FC = () => {
   const { generatePlanFromGoal, generateRecipesFromReceipt, isLoading, error, clearError } = useAppStore();
   const [showReceiptModal, setShowReceiptModal] = useState(false);
+  const [showReceiptInput, setShowReceiptInput] = useState(false);
   const [showGoalModal, setShowGoalModal] = useState(false);
   const [showReceiptGoalModal, setShowReceiptGoalModal] = useState(false);
   const [generatedRecipes, setGeneratedRecipes] = useState<any[]>([]);
@@ -28,18 +30,30 @@ const Home: React.FC = () => {
   };
 
   const handleReceiptUpload = async () => {
+    // Show the detailed receipt input form
+    setShowReceiptModal(false);
+    setShowReceiptInput(true);
+  };
+
+  const handleDetailedReceipt = async (items: any[]) => {
     try {
-      // Simulate receipt items - in real app this would come from OCR
-      const items = [
-        'chicken breast', 'broccoli', 'sweet potatoes', 'olive oil',
-        'quinoa', 'bell peppers', 'tomatoes', 'onions'
-      ];
+      // Extract simple item names for the current API
+      const simpleItems = items.map(item => item.name);
       
-      setReceiptItems(items);
-      setShowReceiptModal(false);
-      setShowReceiptGoalModal(true);
+      // TODO: When backend is updated, send detailed items
+      // const detailedItems = items.map(item => ({
+      //   name: item.name,
+      //   quantity: parseFloat(item.quantity) || undefined,
+      //   unit: item.unit || undefined,
+      //   price: parseFloat(item.price) || undefined
+      // }));
+      
+      setReceiptItems(simpleItems);
+      const recipes = await generateRecipesFromReceipt(simpleItems);
+      setGeneratedRecipes(recipes);
+      setShowReceiptInput(false);
     } catch (error) {
-      console.error('Error processing receipt:', error);
+      console.error('Error generating recipes:', error);
     }
   };
 
@@ -57,6 +71,7 @@ const Home: React.FC = () => {
     setShowReceiptModal(false);
     setShowGoalModal(false);
     setShowReceiptGoalModal(false);
+    setShowReceiptInput(false);
     setGeneratedRecipes([]);
     setReceiptItems([]);
     clearError();
@@ -192,6 +207,18 @@ const Home: React.FC = () => {
             <button className="close-button" onClick={closeModals}>
               Cancel
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Receipt Input Modal */}
+      {showReceiptInput && (
+        <div className="modal-overlay" onClick={closeModals}>
+          <div className="modal-content receipt-input-modal" onClick={(e) => e.stopPropagation()}>
+            <ReceiptInput 
+              onSubmit={handleDetailedReceipt}
+              onCancel={closeModals}
+            />
           </div>
         </div>
       )}

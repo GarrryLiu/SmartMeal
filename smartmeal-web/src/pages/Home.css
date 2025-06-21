@@ -378,4 +378,12 @@
     margin: 10px;
     padding: 20px;
   }
+}
+
+.receipt-input-modal {
+  max-width: 900px;
+  width: 90%;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
 } 
