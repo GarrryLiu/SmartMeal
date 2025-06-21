@@ -9,6 +9,9 @@ yarn.lock
 
 # Python
 __pycache__/
+*/__pycache__/
+**/__pycache__/
+***/__pycache__/
 *.py[cod]
 *$py.class
 *.so
@@ -29,6 +32,21 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+# Python cache directories
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
 
 # Virtual environments
 venv/
