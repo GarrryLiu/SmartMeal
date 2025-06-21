@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { BsArrowRight, BsCheckCircleFill } from 'react-icons/bs';
+import { IoReceiptOutline, IoSettingsOutline, IoSearchOutline, IoRestaurantOutline } from 'react-icons/io5';
 
 const HowItWorks = () => {
   const [ref, inView] = useInView({
@@ -14,25 +15,25 @@ const HowItWorks = () => {
       number: '01',
       title: 'Snap Your Receipt',
       description: 'Take a photo of your grocery receipt or manually add items you bought.',
-      image: '📸',
+      icon: <IoReceiptOutline className="w-10 h-10 text-primary-green" />,
     },
     {
       number: '02',
       title: 'Set Your Preferences',
       description: 'Tell us about your dietary needs, cooking time, and flavor preferences.',
-      image: '⚙️',
+      icon: <IoSettingsOutline className="w-10 h-10 text-primary-green" />,
     },
     {
       number: '03',
       title: 'Get Smart Recipes',
       description: 'Receive AI-generated recipes that use your ingredients efficiently.',
-      image: '🍳',
+      icon: <IoSearchOutline className="w-10 h-10 text-primary-green" />,
     },
     {
       number: '04',
       title: 'Cook & Enjoy',
       description: 'Follow step-by-step instructions and enjoy delicious, waste-free meals.',
-      image: '🎉',
+      icon: <IoRestaurantOutline className="w-10 h-10 text-primary-green" />,
     },
   ];
 
@@ -66,10 +67,10 @@ const HowItWorks = () => {
             >
               <div className="text-center">
                 <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  className="w-20 h-20 bg-white rounded-2xl soft-shadow mx-auto mb-4 flex items-center justify-center text-4xl relative z-10"
+                  whileHover={{ scale: 1.05 }}
+                  className="w-20 h-20 bg-gradient-to-br from-primary-green/10 to-primary-green/5 rounded-2xl mx-auto mb-4 flex items-center justify-center relative z-10 hover:shadow-lg transition-all duration-300"
                 >
-                  {step.image}
+                  {step.icon}
                 </motion.div>
                 <div className="text-primary-green font-bold text-sm mb-2">{step.number}</div>
                 <h3 className="text-xl font-semibold mb-3">{step.title}</h3>

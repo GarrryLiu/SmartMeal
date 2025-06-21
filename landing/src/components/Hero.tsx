@@ -104,22 +104,32 @@ const Hero = () => {
             <div className="relative" style={{ perspective: '1000px' }}>
               <motion.div
                 animate={{ rotateY: isFlipped ? 180 : 0 }}
-                transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
+                transition={{ 
+                  duration: 0.6,
+                  type: "tween",
+                  ease: "easeInOut"
+                }}
                 style={{ 
                   transformStyle: 'preserve-3d',
                   width: '320px',
-                  height: '420px'
+                  height: '420px',
+                  willChange: 'transform'
                 }}
                 className="relative cursor-pointer"
                 onClick={() => setIsFlipped(!isFlipped)}
               >
                 {/* Front - Grocery Receipt */}
-                <div
+                <motion.div
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: isFlipped ? 0 : 1 }}
+                  transition={{ duration: 0.3 }}
                   style={{ 
                     backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
                     position: 'absolute',
                     width: '100%',
-                    height: '100%'
+                    height: '100%',
+                    transform: 'rotateY(0deg)'
                   }}
                   className="bg-white rounded-2xl shadow-2xl p-6"
                 >
@@ -172,12 +182,16 @@ const Hero = () => {
                     </div>
                     <p className="text-center text-xs text-gray-400 mt-2">Thank you for shopping!</p>
                   </div>
-                </div>
+                </motion.div>
                 
                 {/* Back - Recipe Cards */}
-                <div
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isFlipped ? 1 : 0 }}
+                  transition={{ duration: 0.3, delay: isFlipped ? 0.3 : 0 }}
                   style={{ 
                     backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
                     transform: 'rotateY(180deg)',
                     position: 'absolute',
                     width: '100%',
@@ -232,7 +246,7 @@ const Hero = () => {
                       </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
               
               {/* Hint text */}
