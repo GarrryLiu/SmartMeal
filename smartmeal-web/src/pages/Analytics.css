@@ -1,0 +1,488 @@
+.analytics {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 80px);
+}
+
+.analytics-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 0;
+}
+
+.analytics-header h1 {
+  font-size: 3rem;
+  color: #2c3e50;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.analytics-header p {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin: 0;
+}
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Overview Cards */
+.overview-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.overview-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.overview-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  color: white;
+}
+
+.card-content h3 {
+  color: #7f8c8d;
+  font-size: 1rem;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.card-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 4px;
+}
+
+.card-unit {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* Progress Section */
+.progress-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.progress-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.progress-card h3 {
+  color: #2c3e50;
+  margin-bottom: 25px;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.progress-circle {
+  position: relative;
+  display: inline-block;
+}
+
+.progress-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.progress-ring {
+  position: relative;
+}
+
+.progress-ring svg {
+  transform: rotate(-90deg);
+}
+
+.progress-ring circle {
+  transition: stroke-dasharray 0.5s ease;
+}
+
+/* Daily Breakdown */
+.daily-breakdown {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.daily-breakdown h2 {
+  color: #2c3e50;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.daily-chart {
+  overflow-x: auto;
+}
+
+.chart-header {
+  display: grid;
+  grid-template-columns: 100px 1fr 1fr 1fr 1fr 100px;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 2px solid #e9ecef;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 1fr 1fr 1fr 100px;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #f8f9fa;
+  align-items: center;
+}
+
+.chart-row:last-child {
+  border-bottom: none;
+}
+
+.chart-day {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.bar-container {
+  position: relative;
+  background: #f8f9fa;
+  border-radius: 6px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.calorie-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #ff6b6b, #ee5a24);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.protein-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.carb-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #f093fb, #f5576c);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.fat-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #4ecdc4, #44a08d);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+.bar-container span {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.compliance-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+
+.compliance-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.compliance-indicator span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+/* Nutrition Distribution */
+.nutrition-distribution {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.nutrition-distribution h2 {
+  color: #2c3e50;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.macro-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.macro-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.macro-label {
+  width: 100px;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+.macro-bar {
+  flex: 1;
+  background: #f8f9fa;
+  border-radius: 8px;
+  height: 25px;
+  overflow: hidden;
+}
+
+.macro-fill {
+  height: 100%;
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+
+.protein-fill {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+.carb-fill {
+  background: linear-gradient(90deg, #f093fb, #f5576c);
+}
+
+.fat-fill {
+  background: linear-gradient(90deg, #4ecdc4, #44a08d);
+}
+
+.macro-percentage {
+  width: 60px;
+  text-align: right;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1rem;
+}
+
+/* Error Message */
+.error-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #e74c3c;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 1001;
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.error-message button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .overview-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .progress-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .chart-header, .chart-row {
+    grid-template-columns: 80px 1fr 1fr 1fr 1fr 80px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .analytics-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .overview-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .overview-card {
+    padding: 20px;
+  }
+  
+  .card-icon {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .card-value {
+    font-size: 1.5rem;
+  }
+  
+  .chart-header, .chart-row {
+    grid-template-columns: 60px 1fr 1fr 1fr 1fr 60px;
+    gap: 8px;
+    font-size: 0.8rem;
+  }
+  
+  .chart-day {
+    font-size: 0.8rem;
+  }
+  
+  .bar-container {
+    height: 16px;
+  }
+  
+  .bar-container span {
+    font-size: 0.7rem;
+  }
+  
+  .macro-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .macro-label {
+    width: auto;
+  }
+  
+  .macro-bar {
+    width: 100%;
+  }
+  
+  .macro-percentage {
+    width: auto;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .analytics {
+    padding: 10px;
+  }
+  
+  .analytics-header {
+    padding: 20px 0;
+  }
+  
+  .analytics-header h1 {
+    font-size: 2rem;
+  }
+  
+  .overview-card {
+    padding: 15px;
+  }
+  
+  .progress-card {
+    padding: 20px;
+  }
+  
+  .daily-breakdown, .nutrition-distribution {
+    padding: 20px;
+  }
+  
+  .chart-header, .chart-row {
+    grid-template-columns: 50px 1fr 1fr 1fr 1fr 50px;
+    gap: 5px;
+    font-size: 0.7rem;
+  }
+  
+  .chart-day {
+    font-size: 0.7rem;
+  }
+  
+  .bar-container {
+    height: 14px;
+  }
+  
+  .bar-container span {
+    font-size: 0.6rem;
+  }
+} 
