@@ -37,9 +37,10 @@ api.interceptors.response.use(
 
 export const apiService = {
   // Path A: Generate recipes from receipt
-  generateRecipesFromReceipt: async (items: string[]): Promise<Recipe[]> => {
+  generateRecipesFromReceipt: async (items: string[], goal?: string): Promise<Recipe[]> => {
     try {
-      const response = await api.post('/recipes/from-receipt', { items });
+      const payload = goal ? { items, goal } : { items };
+      const response = await api.post('/recipes/from-receipt', payload);
       return response.data.recipes;
     } catch (error) {
       console.error('Error generating recipes:', error);

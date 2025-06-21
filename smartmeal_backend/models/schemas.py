@@ -4,6 +4,7 @@ from typing import List, Optional, Dict, Any
 # Path A Models - Recipe Generation from Receipt
 class RecipeRequest(BaseModel):
     items: List[str]
+    goal: Optional[str] = None
 
 class Recipe(BaseModel):
     id: str

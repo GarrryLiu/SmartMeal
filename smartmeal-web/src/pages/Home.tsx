@@ -6,7 +6,9 @@ const Home: React.FC = () => {
   const { generatePlanFromGoal, generateRecipesFromReceipt, isLoading, error, clearError } = useAppStore();
   const [showReceiptModal, setShowReceiptModal] = useState(false);
   const [showGoalModal, setShowGoalModal] = useState(false);
+  const [showReceiptGoalModal, setShowReceiptGoalModal] = useState(false);
   const [generatedRecipes, setGeneratedRecipes] = useState<any[]>([]);
+  const [receiptItems, setReceiptItems] = useState<string[]>([]);
 
   const goals = [
     { id: 'fitness', name: 'Fitness & Muscle Building', description: 'High-protein diet to support muscle growth' },
@@ -28,14 +30,24 @@ const Home: React.FC = () => {
   const handleReceiptUpload = async () => {
     try {
       // Simulate receipt items - in real app this would come from OCR
-      const receiptItems = [
+      const items = [
         'chicken breast', 'broccoli', 'sweet potatoes', 'olive oil',
         'quinoa', 'bell peppers', 'tomatoes', 'onions'
       ];
       
-      const recipes = await generateRecipesFromReceipt(receiptItems);
-      setGeneratedRecipes(recipes);
+      setReceiptItems(items);
       setShowReceiptModal(false);
+      setShowReceiptGoalModal(true);
+    } catch (error) {
+      console.error('Error processing receipt:', error);
+    }
+  };
+
+  const handleReceiptGoalSelect = async (goal: string) => {
+    try {
+      const recipes = await generateRecipesFromReceipt(receiptItems, goal);
+      setGeneratedRecipes(recipes);
+      setShowReceiptGoalModal(false);
     } catch (error) {
       console.error('Error generating recipes:', error);
     }
@@ -44,7 +56,9 @@ const Home: React.FC = () => {
   const closeModals = () => {
     setShowReceiptModal(false);
     setShowGoalModal(false);
+    setShowReceiptGoalModal(false);
     setGeneratedRecipes([]);
+    setReceiptItems([]);
     clearError();
   };
 
@@ -142,6 +156,38 @@ const Home: React.FC = () => {
               >
                 {isLoading ? 'Analyzing...' : 'Analyze Receipt & Generate Recipes'}
               </button>
+            </div>
+            <button className="close-button" onClick={closeModals}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Receipt Goal Selection Modal */}
+      {showReceiptGoalModal && (
+        <div className="modal-overlay" onClick={closeModals}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h3>Select your health goal for recipe recommendations</h3>
+            <div className="receipt-summary">
+              <h4>Ingredients detected:</h4>
+              <div className="ingredients-list">
+                {receiptItems.map((item, index) => (
+                  <span key={index} className="ingredient-tag">{item}</span>
+                ))}
+              </div>
+            </div>
+            <div className="goals-grid">
+              {goals.map((goal) => (
+                <div 
+                  key={goal.id} 
+                  className="goal-card"
+                  onClick={() => handleReceiptGoalSelect(goal.id)}
+                >
+                  <h4>{goal.name}</h4>
+                  <p>{goal.description}</p>
+                </div>
+              ))}
             </div>
             <button className="close-button" onClick={closeModals}>
               Cancel

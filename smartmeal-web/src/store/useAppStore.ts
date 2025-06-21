@@ -32,10 +32,10 @@ export const useAppStore = create<AppState>((set, get) => ({
     }
   },
 
-  generateRecipesFromReceipt: async (items: string[]): Promise<Recipe[]> => {
+  generateRecipesFromReceipt: async (items: string[], goal?: string): Promise<Recipe[]> => {
     set({ isLoading: true, error: null });
     try {
-      const recipes = await apiService.generateRecipesFromReceipt(items);
+      const recipes = await apiService.generateRecipesFromReceipt(items, goal);
       set({ isLoading: false });
       return recipes;
     } catch (error) {

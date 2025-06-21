@@ -122,7 +122,7 @@ export interface AppState {
   
   // Actions
   generatePlanFromGoal: (goal: string) => Promise<void>;
-  generateRecipesFromReceipt: (items: string[]) => Promise<Recipe[]>;
+  generateRecipesFromReceipt: (items: string[], goal?: string) => Promise<Recipe[]>;
   loadUserProfile: () => Promise<void>;
   setActiveTab: (tab: string) => void;
   clearError: () => void;
