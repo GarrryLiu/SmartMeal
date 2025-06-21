@@ -43,6 +43,9 @@ export default function ManualInputPage() {
       return;
     }
     
+    // Clear any previous generated recipes
+    localStorage.removeItem('generatedRecipes');
+    
     // Store ingredients in localStorage for the next step
     localStorage.setItem('userIngredients', JSON.stringify(validIngredients));
     router.push('/shopping-done/preferences');

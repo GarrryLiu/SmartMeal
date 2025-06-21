@@ -12,6 +12,8 @@ class RecipeRequest(BaseModel):
     items: List[str]  # Keep for backward compatibility
     detailed_items: Optional[List[IngredientDetail]] = None
     goal: Optional[str] = None
+    # User profile data for personalization
+    user_preferences: Optional[Dict[str, Any]] = None  # Will contain diet, allergies, dislikes, cuisines, cookingTime
 
 class Recipe(BaseModel):
     id: str

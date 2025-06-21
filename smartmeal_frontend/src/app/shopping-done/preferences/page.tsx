@@ -24,6 +24,7 @@ export default function PreferencesPage() {
     calories: 400
   });
   const [ingredientCount, setIngredientCount] = useState(0);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   useEffect(() => {
     // Get ingredient count from localStorage
@@ -98,15 +99,99 @@ export default function PreferencesPage() {
     setPreferences(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleGenerateRecipes = () => {
+  const handleGenerateRecipes = async () => {
     if (!preferences.goal || !preferences.cuisine) {
       alert('Please select both a goal and cuisine preference.');
       return;
     }
 
-    // Store preferences in localStorage
-    localStorage.setItem('recipePreferences', JSON.stringify(preferences));
-    router.push('/shopping-done/recipes');
+    setIsGenerating(true);
+
+    try {
+      // Get ingredients from localStorage
+      const storedIngredients = localStorage.getItem('userIngredients');
+      if (!storedIngredients) {
+        alert('No ingredients found. Please go back and add ingredients.');
+        return;
+      }
+
+      const ingredients = JSON.parse(storedIngredients);
+      
+      // Extract just the ingredient names
+      const ingredientNames = ingredients.map((ing: any) => ing.name);
+
+      // Prepare the API request
+      const requestData = {
+        items: ingredientNames,
+        user_preferences: {
+          diet: userProfile.diet,
+          allergies: userProfile.allergies,
+          dislikes: userProfile.dislikes,
+          preferredCuisines: userProfile.preferredCuisines,
+          cookingTime: userProfile.cookingTime,
+          goal: preferences.goal,
+          targetCalories: preferences.calories,
+          cuisine: preferences.cuisine
+        }
+      };
+
+      console.log('Sending to API:', requestData);
+
+      // Make API call to backend
+      const response = await fetch('http://localhost:8000/api/v1/recipes/from-receipt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestData)
+      });
+
+      if (!response.ok) {
+        throw new Error(`API call failed: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      console.log('Received from API:', data);
+
+      // Transform API response to match our Recipe format
+      const transformedRecipes = data.recipes.map((recipe: any, index: number) => ({
+        id: recipe.id || `recipe-${index}`,
+        name: recipe.name,
+        cuisine: preferences.cuisine,
+        cookingTime: recipe.prep_time + recipe.cook_time,
+        servings: recipe.servings,
+        calories: recipe.calories_per_serving,
+        difficulty: recipe.cook_time <= 20 ? 'easy' : recipe.cook_time <= 40 ? 'medium' : 'hard',
+        image: '🍽️', // Default emoji since API doesn't provide images
+        description: recipe.description,
+        ingredients: recipe.ingredients,
+        instructions: recipe.instructions,
+        nutrition: {
+          protein: 25, // Default values since API might not provide these
+          carbs: 35,
+          fat: 15,
+          fiber: 5
+        },
+        tags: recipe.tags || []
+      }));
+
+      // Store in localStorage for the recipes page
+      localStorage.setItem('generatedRecipes', JSON.stringify(transformedRecipes));
+      localStorage.setItem('recipePreferences', JSON.stringify(preferences));
+      
+      // Navigate to recipes page
+      router.push('/shopping-done/recipes');
+
+    } catch (error) {
+      console.error('Error generating recipes:', error);
+      alert('Failed to generate recipes. Please make sure the backend is running.');
+      
+      // Fallback: use mock data
+      localStorage.setItem('recipePreferences', JSON.stringify(preferences));
+      router.push('/shopping-done/recipes');
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const canContinue = preferences.goal && preferences.cuisine;
@@ -302,15 +387,15 @@ export default function PreferencesPage() {
           <div className="flex justify-center">
             <button
               onClick={handleGenerateRecipes}
-              disabled={!canContinue}
+              disabled={!canContinue || isGenerating}
               className={`flex items-center space-x-2 px-8 py-4 rounded-lg font-semibold transition-all duration-300 ${
-                canContinue
+                canContinue && !isGenerating
                   ? 'btn-primary'
                   : 'bg-zinc-800 text-gray-500 cursor-not-allowed'
               }`}
             >
-              <span>Generate My Recipes</span>
-              <HiArrowRight className="w-5 h-5" />
+              <span>{isGenerating ? 'Generating Recipes...' : 'Generate My Recipes'}</span>
+              {!isGenerating && <HiArrowRight className="w-5 h-5" />}
             </button>
           </div>
 

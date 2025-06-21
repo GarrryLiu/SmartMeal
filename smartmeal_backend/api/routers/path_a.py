@@ -47,6 +47,12 @@ async def generate_recipes_from_receipt(request: RecipeRequest):
         preferences = {}
         if request.goal:
             preferences['dietary_goal'] = request.goal
+        
+        # Add user preferences if provided
+        if request.user_preferences:
+            preferences.update(request.user_preferences)
+            # Log user preferences for debugging
+            print(f"User preferences: diet={preferences.get('diet')}, allergies={preferences.get('allergies')}")
             
         # Determine the style based on goal
         style = "default"

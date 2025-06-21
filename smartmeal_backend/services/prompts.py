@@ -100,7 +100,37 @@ def get_recipe_prompt(ingredients: list, style: str = "default", **kwargs) -> st
     prompt = RECIPE_GENERATION_PROMPTS.get(style, RECIPE_GENERATION_PROMPTS["default"])
     prompt = prompt.format(ingredients=", ".join(ingredients))
     
-    # Add additional constraints
+    # Add user profile constraints
+    if kwargs.get('diet'):
+        diet_map = {
+            'vegetarian': 'vegetarian (no meat or fish)',
+            'vegan': 'vegan (no animal products)',
+            'keto': 'ketogenic (very low carb, high fat)',
+            'paleo': 'paleo (no grains, dairy, or processed foods)',
+            'gluten-free': 'gluten-free'
+        }
+        diet_desc = diet_map.get(kwargs['diet'], kwargs['diet'])
+        prompt += f"\n\nDiet Requirement: Recipes MUST be {diet_desc}"
+    
+    if kwargs.get('allergies'):
+        prompt += f"\n\nAllergies: MUST NOT contain: {', '.join(kwargs['allergies'])}"
+    
+    if kwargs.get('dislikes'):
+        prompt += f"\nDislikes: Avoid if possible: {', '.join(kwargs['dislikes'])}"
+    
+    if kwargs.get('preferredCuisines'):
+        prompt += f"\nPreferred Cuisines: Prioritize {', '.join(kwargs['preferredCuisines'])} styles"
+    
+    if kwargs.get('cookingTime'):
+        time_map = {
+            'minimal': 'under 20 minutes total',
+            'moderate': '30-45 minutes total',
+            'extensive': 'can be over 1 hour'
+        }
+        time_desc = time_map.get(kwargs['cookingTime'], '30-45 minutes')
+        prompt += f"\nCooking Time: Recipes should take {time_desc}"
+    
+    # Original additional constraints
     if kwargs.get('dietary_restrictions'):
         prompt += f"\n\nDietary Restrictions: {', '.join(kwargs['dietary_restrictions'])}"
     

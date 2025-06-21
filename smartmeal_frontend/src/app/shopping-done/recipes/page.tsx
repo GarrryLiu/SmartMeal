@@ -54,6 +54,7 @@ export default function RecipesPage() {
     // Get data from localStorage
     const storedIngredients = localStorage.getItem('userIngredients');
     const storedPreferences = localStorage.getItem('recipePreferences');
+    const generatedRecipes = localStorage.getItem('generatedRecipes');
 
     if (!storedIngredients || !storedPreferences) {
       router.push('/shopping-done');
@@ -66,10 +67,18 @@ export default function RecipesPage() {
     setUserIngredients(ingredients);
     setPreferences(prefs);
 
-    // Filter and sort recipes based on preferences and ingredients
-    const filteredRecipes = filterRecipes(ingredients, prefs);
-    setRecipes(filteredRecipes);
-    setDisplayedRecipes(filteredRecipes.slice(0, 3));
+    // Use generated recipes if available, otherwise use filtered mock recipes
+    if (generatedRecipes) {
+      const parsedRecipes = JSON.parse(generatedRecipes);
+      setRecipes(parsedRecipes);
+      setDisplayedRecipes(parsedRecipes.slice(0, 3));
+    } else {
+      // Fallback to mock data filtering
+      const filteredRecipes = filterRecipes(ingredients, prefs);
+      setRecipes(filteredRecipes);
+      setDisplayedRecipes(filteredRecipes.slice(0, 3));
+    }
+    
     setLoading(false);
   }, [router]);
 

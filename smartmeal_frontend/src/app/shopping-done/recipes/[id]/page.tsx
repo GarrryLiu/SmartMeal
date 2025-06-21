@@ -46,8 +46,19 @@ export default function RecipeDetailPage() {
   const [checkedInstructions, setCheckedInstructions] = useState<Set<number>>(new Set());
 
   useEffect(() => {
-    // Find the recipe
-    const foundRecipe = recipesData.recipes.find(r => r.id === recipeId) as Recipe;
+    // First check for generated recipes in localStorage
+    const generatedRecipes = localStorage.getItem('generatedRecipes');
+    let foundRecipe: Recipe | undefined;
+    
+    if (generatedRecipes) {
+      const parsedGeneratedRecipes = JSON.parse(generatedRecipes);
+      foundRecipe = parsedGeneratedRecipes.find((r: Recipe) => r.id === recipeId);
+    }
+    
+    // If not found in generated recipes, fallback to mock data
+    if (!foundRecipe) {
+      foundRecipe = recipesData.recipes.find(r => r.id === recipeId) as Recipe;
+    }
     if (!foundRecipe) {
       router.push('/shopping-done/recipes');
       return;
