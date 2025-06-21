@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { HiArrowRight } from 'react-icons/hi';
 import { MdArrowBack } from 'react-icons/md';
-import { Spotlight } from '@/components/Spotlight';
 import { useUser } from '@/contexts/UserContext';
 import recipesData from '@/data/recipes.json';
 
@@ -228,15 +227,13 @@ export default function PreferencesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      <Spotlight />
-      
+    <div className="min-h-screen bg-gradient-fresh text-gray-900 relative overflow-hidden">
       <div className="page-container relative z-10">
         {/* Header */}
         <div className="flex items-center mb-8">
           <Link 
             href="/shopping-done/manual" 
-            className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
             <MdArrowBack className="w-5 h-5" />
             <span>Back to Ingredients</span>
@@ -245,11 +242,11 @@ export default function PreferencesPage() {
 
         {/* Title and Description */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Recipe Preferences
           </h1>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Great! You've added <span className="text-blue-400 font-semibold">{ingredientCount} ingredients</span>. 
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Great! You've added <span className="text-blue-600 font-semibold">{ingredientCount} ingredients</span>. 
             We've pre-filled your preferences based on your profile, but feel free to adjust them for this recipe search.
           </p>
         </div>
@@ -257,7 +254,7 @@ export default function PreferencesPage() {
         <div className="max-w-4xl mx-auto space-y-8">
           {/* Goal Selection */}
           <div className="card">
-            <h2 className="text-2xl font-semibold text-white mb-6">What's your goal?</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6">What's your goal?</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {recipesData.goalTypes.map((goal) => {
                 const recommendation = getGoalRecommendation(goal.id);
@@ -269,21 +266,21 @@ export default function PreferencesPage() {
                     onClick={() => handlePreferenceChange('goal', goal.id)}
                     className={`p-4 rounded-lg border-2 transition-all duration-300 text-left relative ${
                       isSelected
-                        ? 'border-blue-400 bg-blue-900/20'
-                        : 'border-zinc-700 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-900'
+                        ? 'border-blue-500 bg-blue-50 shadow-lg'
+                        : 'border-gray-200 bg-white hover:border-blue-300 hover:bg-blue-50'
                     }`}
                   >
                     <div className="flex items-center space-x-3">
                       <span className="text-2xl">{goal.icon}</span>
                       <span className={`font-semibold ${
-                        isSelected ? 'text-blue-200' : 'text-white'
+                        isSelected ? 'text-blue-700' : 'text-gray-900'
                       }`}>
                         {goal.name}
                       </span>
                     </div>
                     {recommendation && (
                       <div className="mt-2">
-                        <span className="text-xs bg-blue-900/30 text-blue-300 px-2 py-1 rounded-full">
+                        <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full">
                           ✨ {recommendation}
                         </span>
                       </div>
@@ -296,7 +293,7 @@ export default function PreferencesPage() {
 
           {/* Cuisine Selection */}
           <div className="card">
-            <h2 className="text-2xl font-semibold text-white mb-6">Preferred cuisine?</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6">Preferred cuisine?</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {recipesData.cuisineTypes.map((cuisine) => {
                 const recommendation = getCuisineRecommendation(cuisine.id);
@@ -308,21 +305,21 @@ export default function PreferencesPage() {
                     onClick={() => handlePreferenceChange('cuisine', cuisine.id)}
                     className={`p-4 rounded-lg border-2 transition-all duration-300 text-center relative ${
                       isSelected
-                        ? 'border-green-400 bg-green-900/20'
-                        : 'border-zinc-700 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-900'
+                        ? 'border-emerald-500 bg-emerald-50 shadow-lg'
+                        : 'border-gray-200 bg-white hover:border-emerald-300 hover:bg-emerald-50'
                     }`}
                   >
                     <div className="flex flex-col items-center space-y-2">
                       <span className="text-2xl">{cuisine.icon}</span>
                       <span className={`font-semibold text-sm ${
-                        isSelected ? 'text-green-200' : 'text-white'
+                        isSelected ? 'text-emerald-700' : 'text-gray-900'
                       }`}>
                         {cuisine.name}
                       </span>
                     </div>
                     {recommendation && (
                       <div className="absolute -top-2 -right-2">
-                        <span className="text-xs bg-green-500 text-white px-2 py-1 rounded-full">
+                        <span className="text-xs bg-emerald-500 text-white px-2 py-1 rounded-full">
                           ⭐
                         </span>
                       </div>
@@ -335,7 +332,7 @@ export default function PreferencesPage() {
 
           {/* Calorie Target */}
           <div className="card">
-            <h2 className="text-2xl font-semibold text-white mb-6">Target calories per serving</h2>
+            <h2 className="text-2xl font-semibold text-gray-900 mb-6">Target calories per serving</h2>
             <div className="space-y-4">
               {calorieRanges.map((range) => {
                 const recommendation = getCalorieRecommendation(range.value);
@@ -347,32 +344,32 @@ export default function PreferencesPage() {
                     onClick={() => handlePreferenceChange('calories', range.value)}
                     className={`w-full p-4 rounded-lg border-2 transition-all duration-300 text-left ${
                       isSelected
-                        ? 'border-purple-400 bg-purple-900/20'
-                        : 'border-zinc-700 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-900'
+                        ? 'border-purple-500 bg-purple-50 shadow-lg'
+                        : 'border-gray-200 bg-white hover:border-purple-300 hover:bg-purple-50'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
                         <div className="flex items-center space-x-3">
                           <span className={`font-semibold ${
-                            isSelected ? 'text-purple-200' : 'text-white'
+                            isSelected ? 'text-purple-700' : 'text-gray-900'
                           }`}>
                             {range.label}
                           </span>
                           {recommendation && (
-                            <span className="text-xs bg-purple-900/30 text-purple-300 px-2 py-1 rounded-full">
+                            <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
                               ✨ {recommendation}
                             </span>
                           )}
                         </div>
                         <p className={`text-sm mt-1 ${
-                          isSelected ? 'text-purple-300' : 'text-gray-400'
+                          isSelected ? 'text-purple-600' : 'text-gray-600'
                         }`}>
                           {range.description}
                         </p>
                       </div>
                       {isSelected && (
-                        <div className="w-6 h-6 bg-purple-400 rounded-full flex items-center justify-center">
+                        <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
                           <div className="w-2 h-2 bg-white rounded-full" />
                         </div>
                       )}
@@ -391,7 +388,7 @@ export default function PreferencesPage() {
               className={`flex items-center space-x-2 px-8 py-4 rounded-lg font-semibold transition-all duration-300 ${
                 canContinue && !isGenerating
                   ? 'btn-primary'
-                  : 'bg-zinc-800 text-gray-500 cursor-not-allowed'
+                  : 'bg-gray-200 text-gray-500 cursor-not-allowed'
               }`}
             >
               <span>{isGenerating ? 'Generating Recipes...' : 'Generate My Recipes'}</span>
@@ -401,7 +398,7 @@ export default function PreferencesPage() {
 
           {/* Profile Info */}
           <div className="text-center">
-            <p className="text-gray-400 text-sm max-w-2xl mx-auto">
+            <p className="text-gray-600 text-sm max-w-2xl mx-auto">
               💡 <strong>Smart defaults:</strong> We've selected preferences based on your profile settings. 
               You can change any of these to explore different recipe options.
             </p>

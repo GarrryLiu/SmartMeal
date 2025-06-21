@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { HiCamera, HiUpload, HiPencilAlt, HiArrowRight } from 'react-icons/hi';
 import { MdArrowBack } from 'react-icons/md';
-import { Spotlight } from '@/components/Spotlight';
 
 export default function ShoppingDonePage() {
   const router = useRouter();
@@ -46,15 +45,14 @@ export default function ShoppingDonePage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      <Spotlight />
+    <div className="min-h-screen bg-gradient-fresh text-gray-900 relative overflow-hidden">
       
       <div className="page-container relative z-10">
         {/* Header */}
         <div className="flex items-center mb-8">
           <Link 
             href="/meal" 
-            className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
             <MdArrowBack className="w-5 h-5" />
             <span>Back to Meal Planning</span>
@@ -63,10 +61,10 @@ export default function ShoppingDonePage() {
 
         {/* Title and Description */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             What Did You Buy?
           </h1>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Tell us about your ingredients and we'll suggest delicious recipes you can make right now. 
             Choose how you'd like to add your ingredients below.
           </p>
@@ -81,20 +79,20 @@ export default function ShoppingDonePage() {
               
               const colorClasses = {
                 blue: isSelected 
-                  ? 'border-blue-400 bg-blue-900/20 shadow-lg shadow-blue-500/20' 
-                  : 'border-zinc-700 bg-zinc-950 hover:border-blue-500 hover:bg-blue-900/10',
+                  ? 'border-blue-400 bg-blue-50 shadow-lg shadow-blue-500/20' 
+                  : 'border-gray-200 bg-white hover:border-blue-300 hover:bg-blue-50',
                 green: isSelected 
-                  ? 'border-green-400 bg-green-900/20 shadow-lg shadow-green-500/20' 
-                  : 'border-zinc-700 bg-zinc-950 hover:border-green-500 hover:bg-green-900/10',
+                  ? 'border-emerald-400 bg-emerald-50 shadow-lg shadow-emerald-500/20' 
+                  : 'border-gray-200 bg-white hover:border-emerald-300 hover:bg-emerald-50',
                 purple: isSelected 
-                  ? 'border-purple-400 bg-purple-900/20 shadow-lg shadow-purple-500/20' 
-                  : 'border-zinc-700 bg-zinc-950 hover:border-purple-500 hover:bg-purple-900/10',
+                  ? 'border-purple-400 bg-purple-50 shadow-lg shadow-purple-500/20' 
+                  : 'border-gray-200 bg-white hover:border-purple-300 hover:bg-purple-50',
               };
 
               const iconColorClasses = {
-                blue: isSelected ? 'text-blue-400' : 'text-blue-500',
-                green: isSelected ? 'text-green-400' : 'text-green-500',
-                purple: isSelected ? 'text-purple-400' : 'text-purple-500',
+                blue: isSelected ? 'text-blue-500' : 'text-blue-500',
+                green: isSelected ? 'text-emerald-500' : 'text-emerald-500',
+                purple: isSelected ? 'text-purple-500' : 'text-purple-500',
               };
               
               return (
@@ -113,18 +111,18 @@ export default function ShoppingDonePage() {
                         }`} 
                       />
                       {isSelected && (
-                        <div className="absolute -inset-2 border-2 border-white rounded-full animate-pulse" />
+                        <div className="absolute -inset-2 border-2 border-emerald-500 rounded-full animate-pulse" />
                       )}
                     </div>
                     
                     <div className="space-y-2">
                       <h3 className={`text-xl font-semibold transition-colors ${
-                        isSelected ? 'text-white' : 'text-gray-200 group-hover:text-white'
+                        isSelected ? 'text-gray-900' : 'text-gray-800 group-hover:text-gray-900'
                       }`}>
                         {method.title}
                       </h3>
                       <p className={`text-sm leading-relaxed transition-colors ${
-                        isSelected ? 'text-gray-200' : 'text-gray-400 group-hover:text-gray-300'
+                        isSelected ? 'text-gray-600' : 'text-gray-600 group-hover:text-gray-700'
                       }`}>
                         {method.description}
                       </p>
@@ -132,8 +130,8 @@ export default function ShoppingDonePage() {
 
                     <div className={`flex items-center space-x-2 text-sm font-medium transition-all duration-300 ${
                       isSelected 
-                        ? 'text-white' 
-                        : `text-${method.color}-500 group-hover:text-${method.color}-400`
+                        ? 'text-emerald-600' 
+                        : `text-${method.color}-500 group-hover:text-${method.color}-600`
                     }`}>
                       <span>Get Started</span>
                       <HiArrowRight className="w-4 h-4" />
@@ -147,7 +145,7 @@ export default function ShoppingDonePage() {
 
         {/* Help Text */}
         <div className="mt-12 text-center">
-          <p className="text-gray-400 text-sm max-w-2xl mx-auto">
+          <p className="text-gray-600 text-sm max-w-2xl mx-auto">
             💡 <strong>Pro tip:</strong> The more accurate your ingredient list, the better recipe suggestions we can provide. 
             Don't worry about exact quantities - we'll help you adjust as needed!
           </p>

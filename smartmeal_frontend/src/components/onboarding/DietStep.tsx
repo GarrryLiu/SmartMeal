@@ -87,52 +87,77 @@ const dietOptions = [
 export default function DietStep() {
   const { userProfile, updateProfile } = useUser();
 
-  const handleDietSelect = (dietId: string) => {
-    updateProfile({ diet: dietId });
+  const getIconColor = (index: number, isSelected: boolean) => {
+    if (isSelected) {
+      return index % 2 === 0 ? '#7a9365' : '#e8956b'; // Darker versions for selected
+    }
+    // Alternate between primary and secondary colors for unselected icons
+    return index % 2 === 0 ? '#9cb481' : '#f4a261';
+  };
+
+  const getIconBgColor = (index: number, isSelected: boolean) => {
+    if (isSelected) {
+      return index % 2 === 0 ? '#e8f0e0' : '#fce4d0'; // Light versions for selected
+    }
+    // Alternate between light versions for unselected
+    return index % 2 === 0 ? '#f0f4ed' : '#fce4d0';
+  };
+
+  const getSelectionClass = (index: number, isSelected: boolean) => {
+    if (!isSelected) return '';
+    return index % 2 === 0 ? 'selected-green' : 'selected-orange';
+  };
+
+  const getTextColor = (index: number, isSelected: boolean) => {
+    if (isSelected) {
+      return index % 2 === 0 ? '#7a9365' : '#e8956b';
+    }
+    return '';
   };
 
   return (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <p className="text-gray-300 text-lg">
-          This section helps us understand your overall eating philosophy.
-        </p>
+    <div className="space-y-8">
+      <div className="text-center mb-10">
+        <div className="flex-1">
+          <p className="text-gray-600 text-xl leading-relaxed max-w-2xl mx-auto">
+            Tell us about your dietary preferences so we can personalize your meal recommendations.
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {dietOptions.map((option) => {
-          const IconComponent = option.icon;
-          const isSelected = userProfile.diet === option.id;
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {dietOptions.map((diet, index) => {
+          const isSelected = userProfile.diet === diet.id;
           
           return (
             <button
-              key={option.id}
-              onClick={() => handleDietSelect(option.id)}
-              className={`p-6 rounded-xl border-2 transition-all duration-300 text-left ${
-                isSelected
-                  ? 'border-white bg-zinc-800 shadow-lg'
-                  : 'border-zinc-700 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-900'
-              }`}
+              key={diet.id}
+              onClick={() => updateProfile({ diet: diet.id })}
+              className={`option-card text-left ${getSelectionClass(index, isSelected)}`}
             >
-              <div className="flex items-start space-x-4">
-                <IconComponent 
-                  className={`w-8 h-8 flex-shrink-0 ${
-                    isSelected ? 'text-white' : 'text-gray-400'
-                  }`} 
-                />
-                <div className="flex-1">
-                  <h3 className={`font-semibold text-lg mb-2 ${
-                    isSelected ? 'text-white' : 'text-gray-200'
-                  }`}>
-                    {option.name}
-                  </h3>
-                  <p className={`text-sm ${
-                    isSelected ? 'text-gray-200' : 'text-gray-400'
-                  }`}>
-                    {option.description}
-                  </p>
+              <div className="flex items-center space-x-4 mb-4">
+                <div 
+                  className="p-3 rounded-xl"
+                  style={{ backgroundColor: getIconBgColor(index, isSelected) }}
+                >
+                  <diet.icon 
+                    className="w-7 h-7"
+                    style={{ color: getIconColor(index, isSelected) }}
+                  />
                 </div>
+                <span className={`card-title ${
+                  isSelected ? '' : 'text-gray-800'
+                }`}
+                style={isSelected ? { color: getTextColor(index, true) } : {}}>
+                  {diet.name}
+                </span>
               </div>
+              <p className={`text-sm leading-relaxed ${
+                isSelected ? '' : 'text-gray-600'
+              }`}
+              style={isSelected ? { color: getTextColor(index, true) } : {}}>
+                {diet.description}
+              </p>
             </button>
           );
         })}

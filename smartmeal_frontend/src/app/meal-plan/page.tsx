@@ -5,7 +5,6 @@ import { useUser } from '@/contexts/UserContext';
 import { HiShoppingCart } from 'react-icons/hi';
 import { MdArrowBack } from 'react-icons/md';
 import Link from 'next/link';
-import { Spotlight } from '@/components/Spotlight';
 import PreferencesDisplay from './components/PreferencesDisplay';
 import GroceryCategory from './components/GroceryCategory';
 import ProgressBar from './components/ProgressBar';
@@ -53,21 +52,20 @@ export default function MealPlanPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      <Spotlight />
+    <div className="min-h-screen bg-gradient-fresh text-gray-900 relative overflow-hidden">
       
       <div className="page-container relative z-10">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <Link 
             href="/meal" 
-            className="flex items-center space-x-2 text-gray-400 hover:text-white transition-colors"
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
           >
             <MdArrowBack className="w-5 h-5" />
             <span>Back to Meal Planning</span>
           </Link>
           
-          <div className="flex items-center space-x-2 text-sm text-gray-400">
+          <div className="flex items-center space-x-2 text-sm text-gray-600">
             <HiShoppingCart className="w-4 h-4" />
             <span>{getCheckedCount()} of {getTotalItems()} items</span>
           </div>
@@ -75,10 +73,10 @@ export default function MealPlanPage() {
 
         {/* Title and Description */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             Your Personalized Grocery List
           </h1>
-          <p className="text-lg text-gray-300 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
             {getPersonalizedMessage(userProfile, mealPlanPreferences)}
           </p>
         </div>

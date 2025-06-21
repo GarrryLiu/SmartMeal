@@ -1,42 +1,48 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import { Cormorant_Infant, Work_Sans } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import { UserProvider } from "@/contexts/UserContext";
 
-const poppins = Poppins({
+const cormorantInfant = Cormorant_Infant({
   weight: ['400', '500', '600', '700'],
   subsets: ["latin"],
-  variable: "--font-poppins",
+  variable: "--font-cormorant",
+});
+
+const workSans = Work_Sans({
+  weight: ['400', '500', '600', '700'],
+  subsets: ["latin"],
+  variable: "--font-work-sans",
 });
 
 export const metadata: Metadata = {
-  title: "SmartMeal Planner",
+  title: "SnapCook Planner",
   description: "Your intelligent meal planning companion",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "SmartMeal Planner",
+    title: "SnapCook Planner",
   },
   formatDetection: {
     telephone: false,
   },
   openGraph: {
     type: "website",
-    siteName: "SmartMeal Planner",
-    title: "SmartMeal Planner",
+    siteName: "SnapCook Planner",
+    title: "SnapCook Planner",
     description: "Your intelligent meal planning companion",
   },
   twitter: {
     card: "summary",
-    title: "SmartMeal Planner",
+    title: "SnapCook Planner",
     description: "Your intelligent meal planning companion",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0a",
+  themeColor: "#10b981",
 };
 
 export default function RootLayout({
@@ -45,18 +51,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="">
       <head>
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icon-192x192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="SmartMeal" />
+        <meta name="apple-mobile-web-app-title" content="SnapCook" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
-        <meta name="msapplication-TileColor" content="#0a0a0a" />
+        <meta name="msapplication-TileColor" content="#10b981" />
       </head>
-      <body className={`${poppins.variable} font-poppins bg-black text-white transition-colors duration-300`}>
+      <body className={`${cormorantInfant.variable} ${workSans.variable} font-work-sans bg-gray-50 text-gray-900 transition-colors duration-300`}>
         <UserProvider>
           <div className="flex min-h-screen">
             <Navigation />

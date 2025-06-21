@@ -11,7 +11,7 @@ export default function Offline() {
           You're Offline
         </h1>
         <p className="text-xl text-gray-300 mb-8">
-          Don't worry! You can still use SmartMeal Planner offline.
+          Don't worry! You can still use SnapCook Planner offline.
         </p>
         <div className="card max-w-md mx-auto">
           <h2 className="text-xl font-semibold text-white mb-4">

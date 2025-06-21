@@ -54,43 +54,46 @@ export default function DislikesStep() {
   const otherDislikes = userProfile.dislikes.filter(dislike => !predefinedIds.includes(dislike));
 
   return (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <p className="text-gray-300 text-lg">
-          We'll do our best to avoid ingredients you're not a fan of.
-        </p>
+    <div className="space-y-8">
+      <div className="text-center mb-10">
+        <div className="flex-1">
+          <p className="text-gray-600 text-xl leading-relaxed max-w-2xl mx-auto">
+            What foods do you prefer to avoid? We'll keep these out of your meal plans.
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {commonDislikes.map((dislike) => {
+      {/* Dislike Options */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {commonDislikes.map((dislike, index) => {
           const isSelected = userProfile.dislikes.includes(dislike.id);
+          const isOrangeCard = index % 2 !== 0; // Orange for odd indices
+          const selectionClass = isSelected ? (isOrangeCard ? 'selected-orange' : 'selected-green') : '';
           
           return (
             <button
               key={dislike.id}
               onClick={() => handleDislikeToggle(dislike.id)}
-              className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
-                isSelected
-                  ? 'border-orange-400 bg-orange-900/20 shadow-lg'
-                  : 'border-zinc-700 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-900'
-              }`}
+              className={`option-card text-left relative ${selectionClass}`}
             >
-              <div className="flex items-center space-x-3">
-                <span className="text-2xl">{dislike.icon}</span>
+              <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <h3 className={`font-semibold ${
-                    isSelected ? 'text-orange-200' : 'text-gray-200'
-                  }`}>
+                  <h3 className={`card-title mb-1 ${
+                    isSelected ? '' : 'text-gray-800'
+                  }`}
+                  style={isSelected ? { color: isOrangeCard ? '#e8956b' : '#7a9365' } : {}}>
                     {dislike.name}
                   </h3>
                   <p className={`text-sm ${
-                    isSelected ? 'text-orange-300' : 'text-gray-400'
-                  }`}>
+                    isSelected ? '' : 'text-gray-600'
+                  }`}
+                  style={isSelected ? { color: isOrangeCard ? '#e8956b' : '#7a9365' } : {}}>
                     {dislike.description}
                   </p>
                 </div>
                 {isSelected && (
-                  <div className="w-5 h-5 bg-orange-400 rounded-full flex items-center justify-center">
+                  <div className="w-6 h-6 rounded-full flex items-center justify-center" 
+                       style={{ backgroundColor: isOrangeCard ? '#f4a261' : '#9cb481' }}>
                     <span className="text-white text-xs">✓</span>
                   </div>
                 )}
@@ -101,44 +104,36 @@ export default function DislikesStep() {
       </div>
 
       {/* Other Dislikes */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-white mb-4">Other Dislikes</h3>
-        <div className="flex space-x-2 mb-4">
+      <div className="bg-gray-50 rounded-2xl p-6">
+        <h3 className="card-title text-gray-900 mb-5">Other Dislikes</h3>
+        <div className="flex space-x-3">
           <input
             type="text"
             value={otherDislike}
             onChange={(e) => setOtherDislike(e.target.value)}
-            placeholder="Please specify..."
-            className="flex-1 bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-white"
+            placeholder="Add something you don't like..."
+            className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none transition-all"
             onKeyPress={(e) => e.key === 'Enter' && handleOtherDislikeAdd()}
+            onFocus={(e) => {
+              e.target.style.borderColor = '#9cb481';
+              e.target.style.boxShadow = '0 0 0 3px rgba(156, 180, 129, 0.1)';
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = '#d1d5db';
+              e.target.style.boxShadow = 'none';
+            }}
           />
           <button
             onClick={handleOtherDislikeAdd}
             disabled={!otherDislike.trim()}
-            className="btn-primary px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="text-white px-6 py-3 rounded-xl font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ backgroundColor: '#9cb481' }}
+            onMouseEnter={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#7a9365')}
+            onMouseLeave={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#9cb481')}
           >
             Add
           </button>
         </div>
-        
-        {otherDislikes.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {otherDislikes.map((dislike) => (
-              <span
-                key={dislike}
-                className="bg-orange-900/20 border border-orange-400 text-orange-200 px-3 py-1 rounded-full text-sm flex items-center space-x-2"
-              >
-                <span>{dislike}</span>
-                <button
-                  onClick={() => removeOtherDislike(dislike)}
-                  className="text-orange-300 hover:text-orange-100"
-                >
-                  ×
-                </button>
-              </span>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );

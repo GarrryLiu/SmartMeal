@@ -18,6 +18,7 @@ import {
   MdPublic,
   MdStar
 } from 'react-icons/md';
+import { HiX } from 'react-icons/hi';
 
 const cuisineOptions = [
   { id: 'american', name: 'American', description: 'New England, Southern, etc.', icon: MdFlag },
@@ -39,6 +40,35 @@ const cuisineOptions = [
 export default function CuisineStep() {
   const { userProfile, updateProfile } = useUser();
   const [otherCuisine, setOtherCuisine] = useState('');
+  const [customCuisine, setCustomCuisine] = useState('');
+
+  const getIconColor = (index: number, isSelected: boolean) => {
+    if (isSelected) {
+      return index % 2 === 0 ? '#7a9365' : '#e8956b'; // Darker versions for selected
+    }
+    // Alternate between primary and secondary colors for unselected icons
+    return index % 2 === 0 ? '#9cb481' : '#f4a261';
+  };
+
+  const getIconBgColor = (index: number, isSelected: boolean) => {
+    if (isSelected) {
+      return index % 2 === 0 ? '#e8f0e0' : '#fce4d0'; // Light versions for selected
+    }
+    // Alternate between light versions for unselected
+    return index % 2 === 0 ? '#f0f4ed' : '#fce4d0';
+  };
+
+  const getSelectionClass = (index: number, isSelected: boolean) => {
+    if (!isSelected) return '';
+    return index % 2 === 0 ? 'selected-green' : 'selected-orange';
+  };
+
+  const getTextColor = (index: number, isSelected: boolean) => {
+    if (isSelected) {
+      return index % 2 === 0 ? '#7a9365' : '#e8956b';
+    }
+    return '';
+  };
 
   const handleCuisineToggle = (cuisineId: string) => {
     const currentCuisines = userProfile.preferredCuisines;
@@ -70,49 +100,64 @@ export default function CuisineStep() {
     });
   };
 
+  const handleAddCustomCuisine = () => {
+    if (customCuisine.trim() && !userProfile.preferredCuisines.includes(customCuisine.trim())) {
+      updateProfile({
+        preferredCuisines: [...userProfile.preferredCuisines, customCuisine.trim()]
+      });
+      setCustomCuisine('');
+    }
+  };
+
   const predefinedIds = cuisineOptions.map(option => option.id);
   const otherCuisines = userProfile.preferredCuisines.filter(cuisine => !predefinedIds.includes(cuisine));
 
   return (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <p className="text-gray-300 text-lg">
-          Select all the flavors you love! We'll use this to inspire your weekly plan.
-        </p>
+    <div className="space-y-8">
+      <div className="text-center mb-10">
+        <div className="flex-1">
+          <p className="text-gray-600 text-xl leading-relaxed max-w-2xl mx-auto">
+            What type of cuisine do you enjoy? This helps us suggest recipes you'll love.
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {cuisineOptions.map((option) => {
-          const IconComponent = option.icon;
-          const isSelected = userProfile.preferredCuisines.includes(option.id);
+      {/* Cuisine Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-10">
+        {cuisineOptions.map((cuisine, index) => {
+          const isSelected = userProfile.preferredCuisines.includes(cuisine.id);
           
           return (
             <button
-              key={option.id}
-              onClick={() => handleCuisineToggle(option.id)}
-              className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
-                isSelected
-                  ? 'border-white bg-zinc-800 shadow-lg'
-                  : 'border-zinc-700 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-900'
-              }`}
+              key={cuisine.id}
+              onClick={() => handleCuisineToggle(cuisine.id)}
+              className={`option-card-compact text-center ${getSelectionClass(index, isSelected)}`}
             >
-              <div className="flex items-center space-x-3">
-                <IconComponent 
-                  className={`w-6 h-6 flex-shrink-0 ${
-                    isSelected ? 'text-white' : 'text-gray-400'
-                  }`} 
-                />
-                <div className="flex-1">
-                  <h3 className={`font-semibold mb-1 ${
-                    isSelected ? 'text-white' : 'text-gray-200'
-                  }`}>
-                    {option.name}
-                  </h3>
-                  <p className={`text-sm ${
-                    isSelected ? 'text-gray-200' : 'text-gray-400'
-                  }`}>
-                    {option.description}
-                  </p>
+              <div className="flex flex-col items-center space-y-3">
+                <div 
+                  className="p-3 rounded-xl"
+                  style={{ backgroundColor: getIconBgColor(index, isSelected) }}
+                >
+                  <cuisine.icon 
+                    className="w-7 h-7"
+                    style={{ color: getIconColor(index, isSelected) }}
+                  />
+                </div>
+                <div className="space-y-1">
+                  <span className={`card-title text-sm ${
+                    isSelected ? '' : 'text-gray-800'
+                  }`}
+                  style={isSelected ? { color: getTextColor(index, true) } : {}}>
+                    {cuisine.name}
+                  </span>
+                  {cuisine.description && (
+                    <span className={`text-xs leading-relaxed block ${
+                      isSelected ? '' : 'text-gray-600'
+                    }`}
+                    style={isSelected ? { color: getTextColor(index, true) } : {}}>
+                      {cuisine.description}
+                    </span>
+                  )}
                 </div>
               </div>
             </button>
@@ -120,45 +165,62 @@ export default function CuisineStep() {
         })}
       </div>
 
-      {/* Other Cuisines */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-white mb-4">Other Cuisines</h3>
-        <div className="flex space-x-2 mb-4">
+      {/* Other Cuisines Section */}
+      <div className="bg-gray-50 rounded-2xl p-6">
+        <h3 className="card-title text-gray-900 mb-5">Add Custom Cuisines</h3>
+        <div className="flex flex-wrap gap-3 mb-5">
+          {userProfile.preferredCuisines
+            .filter(cuisine => !cuisineOptions.some(c => c.id === cuisine))
+            .map((cuisine) => (
+              <div
+                key={cuisine}
+                className="flex items-center space-x-2 border text-sm font-medium px-4 py-2 rounded-full"
+                style={{ 
+                  backgroundColor: '#e8f0e0', 
+                  borderColor: '#9cb481', 
+                  color: '#3f6613' 
+                }}
+              >
+                <span>{cuisine}</span>
+                <button
+                  onClick={() => handleCuisineToggle(cuisine)}
+                  className="hover:opacity-70 transition-opacity"
+                  style={{ color: '#3f6613' }}
+                >
+                  <HiX className="w-4 h-4" />
+                </button>
+              </div>
+            ))}
+        </div>
+        
+        <div className="flex space-x-3">
           <input
             type="text"
-            value={otherCuisine}
-            onChange={(e) => setOtherCuisine(e.target.value)}
-            placeholder="Type a cuisine..."
-            className="flex-1 bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-white"
-            onKeyPress={(e) => e.key === 'Enter' && handleOtherCuisineAdd()}
+            value={customCuisine}
+            onChange={(e) => setCustomCuisine(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && handleAddCustomCuisine()}
+            placeholder="Add another cuisine..."
+            className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none transition-all"
+            onFocus={(e) => {
+              e.target.style.borderColor = '#9cb481';
+              e.target.style.boxShadow = '0 0 0 3px rgba(156, 180, 129, 0.1)';
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = '#d1d5db';
+              e.target.style.boxShadow = 'none';
+            }}
           />
           <button
-            onClick={handleOtherCuisineAdd}
-            disabled={!otherCuisine.trim()}
-            className="btn-primary px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            onClick={handleAddCustomCuisine}
+            disabled={!customCuisine.trim()}
+            className="text-white px-6 py-3 rounded-xl font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ backgroundColor: '#9cb481' }}
+            onMouseEnter={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#7a9365')}
+            onMouseLeave={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#9cb481')}
           >
             Add
           </button>
         </div>
-        
-        {otherCuisines.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {otherCuisines.map((cuisine) => (
-              <span
-                key={cuisine}
-                className="bg-zinc-800 text-white px-3 py-1 rounded-full text-sm flex items-center space-x-2"
-              >
-                <span>{cuisine}</span>
-                <button
-                  onClick={() => removeOtherCuisine(cuisine)}
-                  className="text-gray-400 hover:text-white"
-                >
-                  ×
-                </button>
-              </span>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );

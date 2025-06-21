@@ -37,85 +37,86 @@ const cookingTimeOptions = [
 export default function CookingTimeStep() {
   const { userProfile, updateProfile } = useUser();
 
-  const handleCookingTimeSelect = (timeId: string) => {
-    updateProfile({ cookingTime: timeId });
+  const getIconColor = (index: number, isSelected: boolean) => {
+    if (isSelected) {
+      return index % 2 === 0 ? '#7a9365' : '#e8956b'; // Darker versions for selected
+    }
+    // Alternate between primary and secondary colors for unselected icons
+    return index % 2 === 0 ? '#9cb481' : '#f4a261';
+  };
+
+  const getIconBgColor = (index: number, isSelected: boolean) => {
+    if (isSelected) {
+      return index % 2 === 0 ? '#e8f0e0' : '#fce4d0'; // Light versions for selected
+    }
+    // Alternate between light versions for unselected
+    return index % 2 === 0 ? '#f0f4ed' : '#fce4d0';
+  };
+
+  const getSelectionClass = (index: number, isSelected: boolean) => {
+    if (!isSelected) return '';
+    return index % 2 === 0 ? 'selected-green' : 'selected-orange';
+  };
+
+  const getTextColor = (index: number, isSelected: boolean) => {
+    if (isSelected) {
+      return index % 2 === 0 ? '#7a9365' : '#e8956b';
+    }
+    return '';
   };
 
   return (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
-        <p className="text-gray-300 text-lg">
-          How much time do you realistically have to cook on a busy night?
-        </p>
+    <div className="space-y-8">
+      <div className="text-center mb-10">
+        <div className="flex-1">
+          <p className="text-gray-600 text-xl leading-relaxed max-w-2xl mx-auto">
+            How much time do you typically have for cooking? This helps us suggest appropriate recipes.
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {cookingTimeOptions.map((option) => {
-          const IconComponent = option.icon;
+        {cookingTimeOptions.map((option, index) => {
           const isSelected = userProfile.cookingTime === option.id;
-          
-          const colorClasses = {
-            green: isSelected 
-              ? 'border-green-400 bg-green-900/20 text-green-200' 
-              : 'border-zinc-700 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-900',
-            blue: isSelected 
-              ? 'border-blue-400 bg-blue-900/20 text-blue-200' 
-              : 'border-zinc-700 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-900',
-            purple: isSelected 
-              ? 'border-purple-400 bg-purple-900/20 text-purple-200' 
-              : 'border-zinc-700 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-900',
-            orange: isSelected 
-              ? 'border-orange-400 bg-orange-900/20 text-orange-200' 
-              : 'border-zinc-700 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-900',
-          };
-
-          const iconColorClasses = {
-            green: isSelected ? 'text-green-400' : 'text-gray-400',
-            blue: isSelected ? 'text-blue-400' : 'text-gray-400',
-            purple: isSelected ? 'text-purple-400' : 'text-gray-400',
-            orange: isSelected ? 'text-orange-400' : 'text-gray-400',
-          };
+          const IconComponent = option.icon;
           
           return (
             <button
               key={option.id}
-              onClick={() => handleCookingTimeSelect(option.id)}
-              className={`p-8 rounded-xl border-2 transition-all duration-300 text-left ${
-                colorClasses[option.color as keyof typeof colorClasses]
-              }`}
+              onClick={() => updateProfile({ cookingTime: option.id })}
+              className={`option-card text-left ${getSelectionClass(index, isSelected)}`}
             >
-              <div className="flex flex-col items-center text-center space-y-4">
-                <IconComponent 
-                  className={`w-12 h-12 ${
-                    iconColorClasses[option.color as keyof typeof iconColorClasses]
-                  }`} 
-                />
-                <div>
-                  <h3 className={`font-semibold text-xl mb-2 ${
-                    isSelected ? '' : 'text-gray-200'
-                  }`}>
-                    {option.name}
-                  </h3>
-                  <p className={`text-lg ${
-                    isSelected ? '' : 'text-gray-400'
-                  }`}>
-                    {option.description}
-                  </p>
+              <div className="flex items-center space-x-4 mb-4">
+                <div 
+                  className="p-3 rounded-xl"
+                  style={{ backgroundColor: getIconBgColor(index, isSelected) }}
+                >
+                  <IconComponent 
+                    className="w-7 h-7"
+                    style={{ color: getIconColor(index, isSelected) }}
+                  />
                 </div>
-                {isSelected && (
-                  <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                    <span className="text-black text-sm">✓</span>
-                  </div>
-                )}
+                <h3 className={`card-title ${
+                  isSelected ? '' : 'text-gray-800'
+                }`}
+                style={isSelected ? { color: getTextColor(index, true) } : {}}>
+                  {option.name}
+                </h3>
               </div>
+              <p className={`text-sm leading-relaxed ${
+                isSelected ? '' : 'text-gray-600'
+              }`}
+              style={isSelected ? { color: getTextColor(index, true) } : {}}>
+                {option.description}
+              </p>
             </button>
           );
         })}
       </div>
 
-      <div className="text-center mt-8">
-        <p className="text-gray-400 text-sm">
-          Don't worry, you can always adjust this later in your profile settings.
+      <div className="mt-10 text-center">
+        <p className="text-gray-600 text-sm">
+          💡 Don't worry - you can always filter recipes by cooking time when planning meals!
         </p>
       </div>
     </div>

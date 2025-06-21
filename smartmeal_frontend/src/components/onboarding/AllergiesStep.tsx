@@ -60,55 +60,64 @@ export default function AllergiesStep() {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="text-center mb-8">
+    <div className="space-y-8">
+      <div className="text-center mb-10">
         <div className="flex items-center justify-center space-x-2 mb-4">
-          <MdWarning className="w-6 h-6 text-red-400" />
-          <p className="text-red-400 font-semibold">Critical for your safety</p>
+          <MdWarning className="w-6 h-6" style={{ color: '#f4a261' }} />
+          <p className="font-semibold" style={{ color: '#f4a261' }}>Critical for your safety</p>
         </div>
-        <p className="text-gray-300 text-lg">
-          We will <strong>always</strong> exclude these from your recommendations.
-        </p>
+        <div className="flex-1">
+          <p className="text-gray-600 text-xl leading-relaxed max-w-2xl mx-auto">
+            Let us know about any food allergies or intolerances so we can keep you safe.
+          </p>
+        </div>
       </div>
 
       {/* Search Bar */}
-      <div className="relative">
-        <MdSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+      <div className="relative mb-8">
+        <MdSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5" style={{ color: '#9cb481' }} />
         <input
           type="text"
+          placeholder="Search for allergies..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search allergies..."
-          className="w-full bg-zinc-900 border border-zinc-700 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-white"
+          className="w-full bg-white border border-gray-200 rounded-xl pl-10 pr-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none transition-all"
+          onFocus={(e) => {
+            e.target.style.borderColor = '#9cb481';
+            e.target.style.boxShadow = '0 0 0 3px rgba(156, 180, 129, 0.1)';
+          }}
+          onBlur={(e) => {
+            e.target.style.borderColor = '#d1d5db';
+            e.target.style.boxShadow = 'none';
+          }}
         />
       </div>
 
-      {/* Common Allergies */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {filteredAllergies.map((allergy) => {
+      {/* Allergy Options */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        {filteredAllergies.map((allergy, index) => {
           const isSelected = userProfile.allergies.includes(allergy.id);
+          const isOrangeCard = index % 2 !== 0; // Orange for odd indices
+          const selectionClass = isSelected ? (isOrangeCard ? 'selected-orange' : 'selected-green') : '';
           
           return (
             <button
               key={allergy.id}
               onClick={() => handleAllergyToggle(allergy.id)}
-              className={`p-4 rounded-xl border-2 transition-all duration-300 text-left ${
-                isSelected
-                  ? 'border-red-400 bg-red-900/20 shadow-lg'
-                  : 'border-zinc-700 bg-zinc-950 hover:border-zinc-600 hover:bg-zinc-900'
-              }`}
+              className={`option-card text-left relative ${selectionClass}`}
             >
-              <div className="flex items-center space-x-3">
-                <span className="text-2xl">{allergy.icon}</span>
+              <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <h3 className={`font-semibold ${
-                    isSelected ? 'text-red-200' : 'text-gray-200'
-                  }`}>
+                  <h3 className={`card-title mb-1 ${
+                    isSelected ? '' : 'text-gray-800'
+                  }`}
+                  style={isSelected ? { color: isOrangeCard ? '#e8956b' : '#7a9365' } : {}}>
                     {allergy.name}
                   </h3>
                 </div>
                 {isSelected && (
-                  <div className="w-5 h-5 bg-red-400 rounded-full flex items-center justify-center">
+                  <div className="w-6 h-6 rounded-full flex items-center justify-center" 
+                       style={{ backgroundColor: isOrangeCard ? '#f4a261' : '#9cb481' }}>
                     <span className="text-white text-xs">✓</span>
                   </div>
                 )}
@@ -119,44 +128,36 @@ export default function AllergiesStep() {
       </div>
 
       {/* Other Allergies */}
-      <div className="card">
-        <h3 className="text-lg font-semibold text-white mb-4">Other Allergies</h3>
-        <div className="flex space-x-2 mb-4">
+      <div className="bg-gray-50 rounded-2xl p-6">
+        <h3 className="card-title text-gray-900 mb-5">Other Allergies</h3>
+        <div className="flex space-x-3">
           <input
             type="text"
             value={otherAllergy}
             onChange={(e) => setOtherAllergy(e.target.value)}
-            placeholder="Please specify..."
-            className="flex-1 bg-zinc-900 border border-zinc-700 rounded-lg px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:border-white"
+            placeholder="Add another allergy..."
+            className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-500 focus:outline-none transition-all"
             onKeyPress={(e) => e.key === 'Enter' && handleOtherAllergyAdd()}
+            onFocus={(e) => {
+              e.target.style.borderColor = '#9cb481';
+              e.target.style.boxShadow = '0 0 0 3px rgba(156, 180, 129, 0.1)';
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor = '#d1d5db';
+              e.target.style.boxShadow = 'none';
+            }}
           />
           <button
             onClick={handleOtherAllergyAdd}
             disabled={!otherAllergy.trim()}
-            className="btn-primary px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="text-white px-6 py-3 rounded-xl font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{ backgroundColor: '#9cb481' }}
+            onMouseEnter={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#7a9365')}
+            onMouseLeave={(e) => !e.currentTarget.disabled && (e.currentTarget.style.backgroundColor = '#9cb481')}
           >
             Add
           </button>
         </div>
-        
-        {otherAllergies.length > 0 && (
-          <div className="flex flex-wrap gap-2">
-            {otherAllergies.map((allergy) => (
-              <span
-                key={allergy}
-                className="bg-red-900/20 border border-red-400 text-red-200 px-3 py-1 rounded-full text-sm flex items-center space-x-2"
-              >
-                <span>{allergy}</span>
-                <button
-                  onClick={() => removeOtherAllergy(allergy)}
-                  className="text-red-300 hover:text-red-100"
-                >
-                  ×
-                </button>
-              </span>
-            ))}
-          </div>
-        )}
       </div>
     </div>
   );
