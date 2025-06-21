@@ -1,6 +1,6 @@
 # SmartMeal P0 MVP
 
-A functional prototype demonstrating dual-direction AI meal planning capabilities through mobile and web applications.
+A functional prototype demonstrating dual-direction AI meal planning capabilities through a Next.js web application.
 
 ## Project Structure
 
@@ -14,35 +14,22 @@ SmartMeal/
 │   │   └── v1.py
 │   ├── models/
 │   │   └── schemas.py          # Pydantic models
+│   ├── services/
+│   │   ├── ai_service.py       # Gemini AI integration
+│   │   ├── prompts.py          # AI prompt templates
+│   │   └── utils.py            # Helper functions
 │   ├── main.py                 # FastAPI app entry point
 │   └── requirements.txt
-├── smartmeal-app/              # React Native Frontend
+├── smartmeal_frontend/         # Next.js Frontend
 │   ├── src/
-│   │   ├── api/
-│   │   ├── components/
-│   │   ├── features/
-│   │   ├── models/
-│   │   ├── navigation/
-│   │   ├── repository/
-│   │   ├── state/
-│   │   └── services.ts
-│   ├── App.tsx
-│   └── package.json
-├── smartmeal-web/              # React Web Frontend
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   ├── store/
-│   │   ├── models/
-│   │   ├── App.tsx
-│   │   └── index.tsx
-│   ├── public/
-│   └── package.json
+│   │   ├── app/               # Next.js app directory
+│   │   ├── components/        # React components
+│   │   └── contexts/          # React contexts
+│   ├── package.json
+│   └── next.config.ts
 ├── README.md                   # Project documentation
-├── start_backend.sh           # Backend startup script
-├── start_frontend.sh          # React Native startup script
-└── start_web.sh               # Web frontend startup script
+└── start_backend.sh           # Backend startup script
+└── start_frontend.sh          # Frontend startup script
 ```
 
 ## Features
