@@ -1,128 +1,128 @@
 # SmartMeal Demo Guide
 
-## 项目概述
-SmartMeal 是一个AI智能饮食助手，提供两个核心功能路径：
-- **Path A**: 从购物小票生成菜谱
-- **Path B**: 从健康目标生成周饮食计划
+## Project Overview
+SmartMeal is an AI-powered meal assistant that provides two core functional paths:
+- **Path A**: Generate recipes from shopping receipts
+- **Path B**: Generate weekly meal plans from health goals
 
-## 技术栈
-- **后端**: FastAPI (Python)
-- **前端**: React + TypeScript
-- **状态管理**: Zustand
-- **样式**: CSS3 + 响应式设计
+## Tech Stack
+- **Backend**: FastAPI (Python)
+- **Frontend**: React + TypeScript
+- **State Management**: Zustand
+- **Styling**: CSS3 + Responsive Design
 
-## 启动项目
+## Starting the Project
 
-### 1. 启动后端服务器
+### 1. Start Backend Server
 ```bash
 cd smartmeal_backend
 python -m uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-### 2. 启动前端服务器
+### 2. Start Frontend Server
 ```bash
 cd smartmeal-web
 npm start
 ```
 
-## 演示流程
+## Demo Flow
 
-### 1. 首页功能演示
-访问 `http://localhost:3000`
+### 1. Home Page Feature Demo
+Visit `http://localhost:3000`
 
-**Path A - 小票生成菜谱:**
-1. 点击"我刚买完菜"按钮
-2. 查看预设的小票图片
-3. 点击"分析小票并生成菜谱"
-4. 查看生成的菜谱列表
+**Path A - Receipt to Recipe Generation:**
+1. Click "I just went shopping" button
+2. View the preset receipt image
+3. Click "Analyze receipt and generate recipes"
+4. View the generated recipe list
 
-**Path B - 目标生成计划:**
-1. 点击"我需要饮食计划"按钮
-2. 选择健康目标（健身增肌、减重瘦身等）
-3. 系统自动跳转到周计划页面
+**Path B - Goal to Plan Generation:**
+1. Click "I need a meal plan" button
+2. Select health goals (fitness, weight loss, etc.)
+3. System automatically redirects to weekly plan page
 
-### 2. 周计划页面演示
-- 查看7x3网格布局的饮食计划
-- 点击"查看购物清单"按钮
-- 查看分类的购物清单
-- 点击"一键同步到 Instacart"按钮（演示功能）
+### 2. Weekly Plan Page Demo
+- View 7x3 grid layout meal plan
+- Click "View shopping list" button
+- View categorized shopping list
+- Click "Sync to Instacart" button (demo feature)
 
-### 3. 营养分析页面演示
-- 查看总卡路里、蛋白质、碳水、脂肪统计
-- 查看目标达成率和饮食多样性指标
-- 查看每日营养摄入图表
-- 查看营养分布饼图
+### 3. Nutrition Analytics Page Demo
+- View total calories, protein, carbs, fat statistics
+- View goal achievement rate and dietary diversity metrics
+- View daily nutrition intake charts
+- View nutrition distribution pie charts
 
-### 4. 个人档案页面演示
-- 查看用户基本信息
-- 查看个人偏好设置
-- 查看营养目标
-- 查看高级功能状态
+### 4. Personal Profile Page Demo
+- View user basic information
+- View personal preference settings
+- View nutrition goals
+- View premium feature status
 
-## API 端点
+## API Endpoints
 
-### 用户档案
-- `GET /api/v1/profile` - 获取用户档案
+### User Profile
+- `GET /api/v1/profile` - Get user profile
 
-### Path A - 菜谱生成
-- `POST /api/v1/recipes/from-receipt` - 从小票生成菜谱
+### Path A - Recipe Generation
+- `POST /api/v1/recipes/from-receipt` - Generate recipes from receipt
 
-### Path B - 计划生成
-- `POST /api/v1/plans/from-goal` - 从目标生成饮食计划
+### Path B - Plan Generation
+- `POST /api/v1/plans/from-goal` - Generate meal plan from goal
 
-## 核心功能特点
+## Core Feature Highlights
 
-### 1. 响应式设计
-- 支持桌面、平板、手机设备
-- 自适应布局和字体大小
+### 1. Responsive Design
+- Supports desktop, tablet, mobile devices
+- Adaptive layout and font sizes
 
-### 2. 现代化UI
-- 渐变色彩设计
-- 卡片式布局
-- 平滑动画效果
+### 2. Modern UI
+- Gradient color design
+- Card-based layout
+- Smooth animation effects
 
-### 3. 数据可视化
-- 营养摄入图表
-- 进度环形图
-- 柱状图显示
+### 3. Data Visualization
+- Nutrition intake charts
+- Progress ring charts
+- Bar chart displays
 
-### 4. 交互体验
-- 模态框交互
-- 加载状态显示
-- 错误处理机制
+### 4. Interactive Experience
+- Modal interactions
+- Loading state displays
+- Error handling mechanisms
 
-## 演示要点
+## Demo Key Points
 
-### 商业价值展示
-1. **个性化推荐**: 基于用户偏好的智能推荐
-2. **营养管理**: 完整的营养分析和目标追踪
-3. **购物集成**: 与电商平台的集成潜力
-4. **用户粘性**: 完整的用户档案和偏好管理
+### Business Value Showcase
+1. **Personalized Recommendations**: Smart recommendations based on user preferences
+2. **Nutrition Management**: Complete nutrition analysis and goal tracking
+3. **Shopping Integration**: Integration potential with e-commerce platforms
+4. **User Retention**: Complete user profile and preference management
 
-### 技术亮点
-1. **前后端分离**: 清晰的API设计
-2. **状态管理**: 使用Zustand进行状态管理
-3. **类型安全**: TypeScript提供类型检查
-4. **响应式设计**: 多设备兼容
+### Technical Highlights
+1. **Frontend-Backend Separation**: Clear API design
+2. **State Management**: Using Zustand for state management
+3. **Type Safety**: TypeScript provides type checking
+4. **Responsive Design**: Multi-device compatibility
 
-### 用户体验
-1. **直观导航**: 清晰的Tab导航结构
-2. **快速反馈**: 即时的加载和错误提示
-3. **数据展示**: 丰富的数据可视化
-4. **操作简化**: 一键生成和查看功能
+### User Experience
+1. **Intuitive Navigation**: Clear tab navigation structure
+2. **Quick Feedback**: Instant loading and error prompts
+3. **Data Display**: Rich data visualization
+4. **Simplified Operations**: One-click generation and viewing features
 
-## 扩展功能（P1级别）
-- 动画效果增强
-- 烹饪说明详情
-- 社交分享功能
-- 营养师定制服务
-- 移动应用开发
+## Extended Features (P1 Level)
+- Enhanced animation effects
+- Detailed cooking instructions
+- Social sharing features
+- Nutritionist customization services
+- Mobile app development
 
-## 总结
-SmartMeal 展示了现代Web应用的最佳实践，包括：
-- 完整的前后端架构
-- 优秀的用户体验设计
-- 可扩展的功能模块
-- 商业化的产品思维
+## Summary
+SmartMeal demonstrates best practices for modern web applications, including:
+- Complete frontend-backend architecture
+- Excellent user experience design
+- Scalable functional modules
+- Commercialized product thinking
 
-这个项目为智能饮食管理提供了一个完整的解决方案框架。 
+This project provides a complete solution framework for intelligent meal management. 
