@@ -1,0 +1,80 @@
+{
+  "categories": [
+    {
+      "name": "Fresh Produce",
+      "icon": "🥬",
+      "items": [
+        { "id": "spinach", "name": "Fresh Spinach", "quantity": "2 bunches", "essential": true },
+        { "id": "tomatoes", "name": "Roma Tomatoes", "quantity": "1 lb", "essential": true },
+        { "id": "avocados", "name": "Avocados", "quantity": "3 pieces", "essential": false },
+        { "id": "bell-peppers", "name": "Bell Peppers (Mixed)", "quantity": "4 pieces", "essential": true },
+        { "id": "onions", "name": "Yellow Onions", "quantity": "2 lbs", "essential": true },
+        { "id": "garlic", "name": "Fresh Garlic", "quantity": "1 bulb", "essential": true },
+        { "id": "lemons", "name": "Lemons", "quantity": "3 pieces", "essential": false },
+        { "id": "broccoli", "name": "Fresh Broccoli", "quantity": "2 heads", "essential": true }
+      ]
+    },
+    {
+      "name": "Proteins",
+      "icon": "🥩",
+      "items": [
+        { "id": "chicken-breast", "name": "Chicken Breast", "quantity": "2 lbs", "essential": true },
+        { "id": "salmon", "name": "Fresh Salmon Fillets", "quantity": "1 lb", "essential": false },
+        { "id": "eggs", "name": "Free-Range Eggs", "quantity": "1 dozen", "essential": true },
+        { "id": "greek-yogurt", "name": "Greek Yogurt (Plain)", "quantity": "32 oz", "essential": true },
+        { "id": "tofu", "name": "Extra Firm Tofu", "quantity": "1 block", "essential": false }
+      ]
+    },
+    {
+      "name": "Whole Grains & Carbs",
+      "icon": "🌾",
+      "items": [
+        { "id": "quinoa", "name": "Organic Quinoa", "quantity": "2 lbs", "essential": true },
+        { "id": "brown-rice", "name": "Brown Rice", "quantity": "2 lbs", "essential": true },
+        { "id": "oats", "name": "Steel Cut Oats", "quantity": "1 container", "essential": false },
+        { "id": "sweet-potatoes", "name": "Sweet Potatoes", "quantity": "3 lbs", "essential": true }
+      ]
+    },
+    {
+      "name": "Healthy Fats",
+      "icon": "🥑",
+      "items": [
+        { "id": "olive-oil", "name": "Extra Virgin Olive Oil", "quantity": "1 bottle", "essential": true },
+        { "id": "almonds", "name": "Raw Almonds", "quantity": "1 lb", "essential": false },
+        { "id": "chia-seeds", "name": "Chia Seeds", "quantity": "1 bag", "essential": false },
+        { "id": "coconut-oil", "name": "Coconut Oil", "quantity": "1 jar", "essential": false }
+      ]
+    },
+    {
+      "name": "Pantry Essentials",
+      "icon": "🏺",
+      "items": [
+        { "id": "sea-salt", "name": "Sea Salt", "quantity": "1 container", "essential": true },
+        { "id": "black-pepper", "name": "Black Pepper", "quantity": "1 grinder", "essential": true },
+        { "id": "turmeric", "name": "Ground Turmeric", "quantity": "1 jar", "essential": false },
+        { "id": "cumin", "name": "Ground Cumin", "quantity": "1 jar", "essential": false },
+        { "id": "apple-cider-vinegar", "name": "Apple Cider Vinegar", "quantity": "1 bottle", "essential": false }
+      ]
+    }
+  ],
+  "recommendations": {
+    "vegetarian": {
+      "additionalItems": [
+        { "id": "nutritional-yeast", "name": "Nutritional Yeast", "quantity": "1 container" },
+        { "id": "tempeh", "name": "Organic Tempeh", "quantity": "2 packages" }
+      ]
+    },
+    "keto": {
+      "additionalItems": [
+        { "id": "mct-oil", "name": "MCT Oil", "quantity": "1 bottle" },
+        { "id": "grass-fed-butter", "name": "Grass-Fed Butter", "quantity": "1 lb" }
+      ]
+    },
+    "high-protein": {
+      "additionalItems": [
+        { "id": "protein-powder", "name": "Plant Protein Powder", "quantity": "1 container" },
+        { "id": "cottage-cheese", "name": "Low-Fat Cottage Cheese", "quantity": "2 containers" }
+      ]
+    }
+  }
+} 
