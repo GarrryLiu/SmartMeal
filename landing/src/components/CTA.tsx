@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { BsArrowRight } from 'react-icons/bs';
+import { getAppUrl } from '@/config/urls';
 
 const CTA = () => {
+  const appUrl = getAppUrl();
+  
   return (
     <section className="py-20 px-6 bg-primary-green relative overflow-hidden">
       {/* Background pattern */}
@@ -27,7 +30,7 @@ const CTA = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <motion.a
-              href="http://localhost:3000"
+              href={appUrl}
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}

@@ -11,11 +11,13 @@ load_dotenv()
 class GeminiService:
     def __init__(self):
         self.api_key = os.getenv("GEMINI_API_KEY")
-        if not self.api_key:
-            raise ValueError("GEMINI_API_KEY not found in environment variables")
+        self.mock_mode = not self.api_key
         
-        # Use the Gemini 2.0 Flash model via REST API
-        self.api_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={self.api_key}"
+        if self.mock_mode:
+            print("Warning: GEMINI_API_KEY not found. Running in mock mode with sample data.")
+        else:
+            # Use the Gemini 2.0 Flash model via REST API
+            self.api_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={self.api_key}"
         
     def generate_recipes_from_ingredients(
         self, 
@@ -27,6 +29,11 @@ class GeminiService:
         """
         Generate recipes based on ingredients using Gemini AI REST API
         """
+        
+        # If in mock mode, return sample data
+        if self.mock_mode:
+            return self._get_mock_recipes(ingredients, style, preferences)
+        
         # Build the prompt using our prompt templates
         if detailed_ingredients:
             # Format detailed ingredients for the prompt
@@ -135,6 +142,57 @@ IMPORTANT: Your entire response must be a valid JSON array starting with [ and e
             raise Exception(f"Error making API request: {str(e)}")
         except Exception as e:
             raise Exception(f"Error calling Gemini API: {str(e)}")
+    
+    def _get_mock_recipes(self, ingredients: List[str], style: str = "default", preferences: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Return mock recipe data for testing when API key is not available"""
+        mock_recipes = [
+            {
+                "name": f"Delicious {style.title()} Recipe",
+                "description": f"A tasty recipe using {', '.join(ingredients[:3])}",
+                "ingredients": [
+                    {"name": ing, "quantity": "1", "unit": "piece"} for ing in ingredients[:5]
+                ],
+                "instructions": [
+                    "Wash and prepare all ingredients",
+                    "Heat oil in a pan",
+                    "Add ingredients and cook for 10 minutes",
+                    "Season to taste and serve"
+                ],
+                "cooking_time": 20,
+                "difficulty": "Easy",
+                "servings": 2,
+                "nutrition": {
+                    "calories": 300,
+                    "protein": "15g",
+                    "carbs": "25g",
+                    "fat": "12g"
+                }
+            },
+            {
+                "name": f"Quick {style.title()} Meal",
+                "description": f"Fast and healthy meal with {', '.join(ingredients[:2])}",
+                "ingredients": [
+                    {"name": ing, "quantity": "2", "unit": "pieces"} for ing in ingredients[:3]
+                ],
+                "instructions": [
+                    "Prepare ingredients",
+                    "Cook in a skillet",
+                    "Add seasoning",
+                    "Serve hot"
+                ],
+                "cooking_time": 15,
+                "difficulty": "Easy",
+                "servings": 1,
+                "nutrition": {
+                    "calories": 250,
+                    "protein": "12g",
+                    "carbs": "20g",
+                    "fat": "10g"
+                }
+            }
+        ]
+        
+        return {"recipes": mock_recipes}
 
 # Create a singleton instance
 gemini_service = GeminiService()

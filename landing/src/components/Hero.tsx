@@ -3,9 +3,11 @@ import { motion } from 'framer-motion';
 import { BsArrowRight } from 'react-icons/bs';
 import { BiLeaf } from 'react-icons/bi';
 import { FiShoppingBag } from 'react-icons/fi';
+import { getAppUrl } from '@/config/urls';
 
 const Hero = () => {
   const [isFlipped, setIsFlipped] = useState(false);
+  const appUrl = getAppUrl();
   
   // Auto-flip after 3 seconds
   useEffect(() => {
@@ -56,7 +58,7 @@ const Hero = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 items-start">
               <motion.a
-                href="http://localhost:3000"
+                href={appUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
