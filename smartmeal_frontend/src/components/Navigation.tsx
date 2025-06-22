@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { HiHome, HiChartBar, HiUser } from 'react-icons/hi';
+import { HiHome, HiChartBar, HiUser, HiCalendar } from 'react-icons/hi';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -13,6 +13,7 @@ export default function Navigation() {
 
   const navItems = [
     { name: 'Home', href: '/', icon: HiHome },
+    { name: 'Weekly Plan', href: '/weekly-plan', icon: HiCalendar },
     { name: 'Analytics', href: '/analytics', icon: HiChartBar },
     { name: 'Profile', href: '/profile', icon: HiUser },
   ];
