@@ -18,7 +18,7 @@ export default function Navigation() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 py-2 px-4 sm:px-6 lg:static lg:w-20 lg:h-screen lg:border-r lg:border-t-0 z-50 shadow-lg">
+    <nav className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 py-2 px-4 sm:px-6 lg:fixed lg:top-0 lg:left-0 lg:w-20 lg:h-screen lg:border-r lg:border-t-0 z-50 shadow-lg">
       <div className="flex justify-around lg:flex-col lg:items-center lg:space-y-8 lg:h-full lg:py-8">
         {navItems.map((item) => (
           <Link

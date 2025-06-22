@@ -225,6 +225,7 @@
   font-family: var(--font-cormorant);
   font-weight: 600;
   line-height: 1.4;
+  font-size: 1.2rem; /* 18px - slightly larger than default */
 }
 
 /* Button Hover Classes */

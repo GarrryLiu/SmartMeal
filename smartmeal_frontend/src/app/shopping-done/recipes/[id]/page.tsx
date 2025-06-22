@@ -101,10 +101,10 @@ export default function RecipeDetailPage() {
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'easy': return 'text-emerald-600 bg-emerald-100';
-      case 'medium': return 'text-yellow-600 bg-yellow-100';
-      case 'hard': return 'text-red-600 bg-red-100';
-      default: return 'text-gray-600 bg-gray-100';
+      case 'easy': return { color: '#9cb481', backgroundColor: '#e8f0e0' };
+      case 'medium': return { color: '#f4a261', backgroundColor: '#fce4d0' };
+      case 'hard': return { color: '#dc2626', backgroundColor: '#fee2e2' };
+      default: return { color: '#6b7280', backgroundColor: '#f3f4f6' };
     }
   };
 
@@ -112,8 +112,8 @@ export default function RecipeDetailPage() {
     return (
       <div className="min-h-screen bg-gradient-fresh text-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading recipe...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4" style={{ borderColor: '#9cb481' }}></div>
+          <p className="text-gray-600 font-body">Loading recipe...</p>
         </div>
       </div>
     );
@@ -126,7 +126,7 @@ export default function RecipeDetailPage() {
         <div className="flex items-center mb-8">
           <Link 
             href="/shopping-done/recipes" 
-            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors font-body"
           >
             <MdArrowBack className="w-5 h-5" />
             <span>Back to Recipes</span>
@@ -139,27 +139,30 @@ export default function RecipeDetailPage() {
             <div className="flex justify-center mb-6">
               <span className="text-8xl">{recipe.image}</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="title-medium text-gray-900 text-4xl md:text-5xl mb-4">
               {recipe.name}
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed mb-6">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed mb-6 font-body">
               {recipe.description}
             </p>
             
             {/* Recipe Stats */}
             <div className="flex justify-center items-center space-x-8 mb-6">
-              <div className="flex items-center space-x-2 text-gray-600">
+              <div className="flex items-center space-x-2 text-gray-600 font-body">
                 <HiClock className="w-5 h-5" />
                 <span>{recipe.cookingTime} minutes</span>
               </div>
-              <div className="flex items-center space-x-2 text-gray-600">
+              <div className="flex items-center space-x-2 text-gray-600 font-body">
                 <HiUsers className="w-5 h-5" />
                 <span>{recipe.servings} servings</span>
               </div>
-              <div className="flex items-center space-x-2 text-gray-600">
+              <div className="flex items-center space-x-2 text-gray-600 font-body">
                 <span>{recipe.calories} calories</span>
               </div>
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(recipe.difficulty)}`}>
+              <span 
+                className="px-3 py-1 rounded-full text-sm font-medium font-body"
+                style={getDifficultyColor(recipe.difficulty)}
+              >
                 {recipe.difficulty}
               </span>
             </div>
@@ -167,7 +170,7 @@ export default function RecipeDetailPage() {
             {/* Tags */}
             <div className="flex justify-center flex-wrap gap-2">
               {recipe.tags.map((tag) => (
-                <span key={tag} className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full">
+                <span key={tag} className="text-xs bg-gray-100 text-gray-600 px-3 py-1 rounded-full font-body">
                   {tag}
                 </span>
               ))}
@@ -178,9 +181,9 @@ export default function RecipeDetailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Ingredients */}
             <div className="card">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center space-x-2">
+              <h2 className="card-title text-gray-900 mb-6 flex items-center space-x-2">
                 <span>Ingredients</span>
-                <span className="text-sm text-gray-600">({recipe.ingredients.length} items)</span>
+                <span className="text-sm text-gray-600 font-body">({recipe.ingredients.length} items)</span>
               </h2>
               
               <div className="space-y-3">
@@ -194,29 +197,31 @@ export default function RecipeDetailPage() {
                       onClick={() => toggleIngredientCheck(ingredient)}
                       className={`w-full p-3 rounded-lg border transition-all duration-300 text-left ${
                         isChecked
-                          ? 'border-emerald-400 bg-emerald-50'
+                          ? 'bg-green-light shadow-lg'
                           : 'border-gray-200 bg-white hover:border-gray-300'
                       }`}
+                      style={isChecked ? { borderColor: '#9cb481' } : {}}
                     >
                       <div className="flex items-center space-x-3">
                         <div className={`w-5 h-5 rounded border-2 flex items-center justify-center ${
                           isChecked 
-                            ? 'bg-emerald-500 border-emerald-500' 
+                            ? 'border-gray-900' 
                             : 'border-gray-300'
-                        }`}>
+                        }`}
+                        style={isChecked ? { backgroundColor: '#9cb481', borderColor: '#9cb481' } : {}}>
                           {isChecked && <HiArrowLeft className="w-3 h-3 text-white" />}
                         </div>
                         
                         <div className="flex-1">
-                          <span className={`${
+                          <span className={`font-body ${
                             isChecked ? 'line-through text-gray-500' : 'text-gray-900'
                           }`}>
                             {ingredient.replace('-', ' ')}
                           </span>
                           {hasIngredient && (
-                            <div className="flex items-center space-x-1 text-emerald-600">
+                            <div className="flex items-center space-x-1 mt-1" style={{ color: '#9cb481' }}>
                               <HiArrowLeft className="w-4 h-4" />
-                              <span className="text-xs">You have this</span>
+                              <span className="text-xs font-body">You have this</span>
                             </div>
                           )}
                         </div>
@@ -229,9 +234,9 @@ export default function RecipeDetailPage() {
 
             {/* Instructions */}
             <div className="card">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center space-x-2">
+              <h2 className="card-title text-gray-900 mb-6 flex items-center space-x-2">
                 <span>Instructions</span>
-                <span className="text-sm text-gray-600">({recipe.instructions.length} steps)</span>
+                <span className="text-sm text-gray-600 font-body">({recipe.instructions.length} steps)</span>
               </h2>
               
               <div className="space-y-4">
@@ -244,24 +249,26 @@ export default function RecipeDetailPage() {
                       onClick={() => toggleInstructionCheck(index)}
                       className={`w-full p-4 rounded-lg border transition-all duration-300 text-left ${
                         isChecked
-                          ? 'border-emerald-400 bg-emerald-50'
+                          ? 'bg-orange-secondary-light shadow-lg'
                           : 'border-gray-200 bg-white hover:border-gray-300'
                       }`}
+                      style={isChecked ? { borderColor: '#f4a261' } : {}}
                     >
                       <div className="flex items-start space-x-3">
                         <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
                           isChecked 
-                            ? 'bg-emerald-500 border-emerald-500' 
+                            ? 'border-gray-900' 
                             : 'border-gray-300'
-                        }`}>
+                        }`}
+                        style={isChecked ? { backgroundColor: '#f4a261', borderColor: '#f4a261' } : {}}>
                           {isChecked ? (
                             <HiArrowLeft className="w-4 h-4 text-white" />
                           ) : (
-                            <span className="text-sm font-semibold text-gray-600">{index + 1}</span>
+                            <span className="text-sm font-semibold text-gray-600 font-body">{index + 1}</span>
                           )}
                         </div>
                         
-                        <p className={`${
+                        <p className={`font-body ${
                           isChecked ? 'line-through text-gray-500' : 'text-gray-900'
                         } leading-relaxed`}>
                           {instruction}
@@ -276,23 +283,23 @@ export default function RecipeDetailPage() {
 
           {/* Nutrition Information */}
           <div className="mt-8 card">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-6">Nutrition per Serving</h2>
+            <h2 className="card-title text-gray-900 mb-6">Nutrition per Serving</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
-                <div className="text-3xl font-bold text-blue-600 mb-2">{recipe.nutrition.protein}g</div>
-                <div className="text-sm text-gray-600">Protein</div>
+                <div className="text-3xl font-bold mb-2 title-medium" style={{ color: '#9cb481' }}>{recipe.nutrition.protein}g</div>
+                <div className="text-sm text-gray-600 font-body">Protein</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-emerald-600 mb-2">{recipe.nutrition.carbs}g</div>
-                <div className="text-sm text-gray-600">Carbs</div>
+                <div className="text-3xl font-bold mb-2 title-medium" style={{ color: '#f4a261' }}>{recipe.nutrition.carbs}g</div>
+                <div className="text-sm text-gray-600 font-body">Carbs</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-orange-600 mb-2">{recipe.nutrition.fat}g</div>
-                <div className="text-sm text-gray-600">Fat</div>
+                <div className="text-3xl font-bold mb-2 title-medium" style={{ color: '#9cb481' }}>{recipe.nutrition.fat}g</div>
+                <div className="text-sm text-gray-600 font-body">Fat</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-purple-600 mb-2">{recipe.nutrition.fiber}g</div>
-                <div className="text-sm text-gray-600">Fiber</div>
+                <div className="text-3xl font-bold mb-2 title-medium" style={{ color: '#f4a261' }}>{recipe.nutrition.fiber}g</div>
+                <div className="text-sm text-gray-600 font-body">Fiber</div>
               </div>
             </div>
           </div>
@@ -300,17 +307,18 @@ export default function RecipeDetailPage() {
           {/* Progress Summary */}
           <div className="mt-8 text-center">
             <div className="card">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Cooking Progress</h3>
+              <h3 className="card-title text-gray-900 mb-4">Cooking Progress</h3>
               <div className="space-y-2">
-                <div className="flex justify-between text-sm text-gray-600">
+                <div className="flex justify-between text-sm text-gray-600 font-body">
                   <span>Ingredients: {checkedIngredients.size} of {recipe.ingredients.length}</span>
                   <span>Instructions: {checkedInstructions.size} of {recipe.instructions.length}</span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div 
-                    className="bg-emerald-500 h-2 rounded-full transition-all duration-300"
+                    className="h-2 rounded-full transition-all duration-300"
                     style={{ 
-                      width: `${((checkedIngredients.size + checkedInstructions.size) / (recipe.ingredients.length + recipe.instructions.length)) * 100}%` 
+                      width: `${((checkedIngredients.size + checkedInstructions.size) / (recipe.ingredients.length + recipe.instructions.length)) * 100}%`,
+                      backgroundColor: '#9cb481'
                     }}
                   />
                 </div>

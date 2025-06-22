@@ -59,13 +59,13 @@ export default function MealPlanPage() {
         <div className="flex items-center justify-between mb-8">
           <Link 
             href="/meal" 
-            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors font-body"
           >
             <MdArrowBack className="w-5 h-5" />
             <span>Back to Meal Planning</span>
           </Link>
           
-          <div className="flex items-center space-x-2 text-sm text-gray-600">
+          <div className="flex items-center space-x-2 text-sm text-gray-600 font-body">
             <HiShoppingCart className="w-4 h-4" />
             <span>{getCheckedCount()} of {getTotalItems()} items</span>
           </div>
@@ -73,10 +73,10 @@ export default function MealPlanPage() {
 
         {/* Title and Description */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="title-medium text-gray-900 text-4xl mb-6">
             Your Personalized Grocery List
           </h1>
-          <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed font-body">
             {getPersonalizedMessage(userProfile, mealPlanPreferences)}
           </p>
         </div>

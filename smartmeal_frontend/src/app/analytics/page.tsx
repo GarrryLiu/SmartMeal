@@ -223,7 +223,7 @@ export default function Analytics() {
     <div className="min-h-screen bg-soft-grey">
       <div className="page-container">
         {/* Title - Matching Profile Page Style */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-center items-center mb-8">
           <h1 className="title-medium text-gray-900 text-4xl">Your Analytics</h1>
         </div>
 

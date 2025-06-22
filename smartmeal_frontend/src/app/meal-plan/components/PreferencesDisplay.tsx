@@ -45,29 +45,29 @@ export default function PreferencesDisplay({ preferences }: PreferencesDisplayPr
   return (
     <div className="mb-8">
       <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Meal Plan Preferences</h3>
+        <h3 className="card-title text-gray-900 mb-4">Your Meal Plan Preferences</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
           <div>
-            <span className="text-gray-600">Goal:</span>
-            <p className="text-blue-600 font-medium">{goalNames[goal as keyof typeof goalNames] || goal}</p>
+            <span className="text-gray-600 font-body">Goal:</span>
+            <p className="font-medium font-body" style={{ color: '#9cb481' }}>{goalNames[goal as keyof typeof goalNames] || goal}</p>
           </div>
           <div>
-            <span className="text-gray-600">Cuisine:</span>
-            <p className="text-emerald-600 font-medium">{cuisineNames[cuisine as keyof typeof cuisineNames] || cuisine}</p>
+            <span className="text-gray-600 font-body">Cuisine:</span>
+            <p className="font-medium font-body" style={{ color: '#f4a261' }}>{cuisineNames[cuisine as keyof typeof cuisineNames] || cuisine}</p>
           </div>
           <div>
-            <span className="text-gray-600">Calories:</span>
-            <p className="text-purple-600 font-medium">{calories} per serving</p>
+            <span className="text-gray-600 font-body">Calories:</span>
+            <p className="font-medium font-body" style={{ color: '#9cb481' }}>{calories} per serving</p>
           </div>
           <div>
-            <span className="text-gray-600">Cooking Time:</span>
-            <p className="text-orange-600 font-medium">{timeNames[cookingTime as keyof typeof timeNames] || cookingTime}</p>
+            <span className="text-gray-600 font-body">Cooking Time:</span>
+            <p className="font-medium font-body" style={{ color: '#f4a261' }}>{timeNames[cookingTime as keyof typeof timeNames] || cookingTime}</p>
           </div>
         </div>
         <div className="mt-4 pt-4 border-t border-gray-200">
           <Link 
             href="/meal-plan/preferences"
-            className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+            className="text-sm text-gray-600 hover:text-gray-900 transition-colors font-body"
           >
             ✏️ Adjust preferences
           </Link>

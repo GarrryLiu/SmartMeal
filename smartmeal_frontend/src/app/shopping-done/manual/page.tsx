@@ -44,7 +44,7 @@ export default function ManualPage() {
     
     // Store ingredients in localStorage for recipe suggestions
     localStorage.setItem('userIngredients', JSON.stringify(validIngredients));
-    router.push('/shopping-done/recipes');
+    router.push('/shopping-done/preferences');
   };
 
   const canContinue = ingredients.some(ing => ing.name.trim() !== '');
@@ -57,7 +57,7 @@ export default function ManualPage() {
         <div className="flex items-center mb-8">
           <Link 
             href="/shopping-done" 
-            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+            className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors font-body"
           >
             <MdArrowBack className="w-5 h-5" />
             <span>Back to Input Options</span>
@@ -66,10 +66,10 @@ export default function ManualPage() {
 
         {/* Title and Description */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="title-medium text-gray-900 text-4xl mb-6">
             Add Your Ingredients
           </h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed font-body">
             Manually add the ingredients you have and we'll suggest recipes you can make with them.
           </p>
         </div>
@@ -78,7 +78,7 @@ export default function ManualPage() {
         <div className="max-w-2xl mx-auto space-y-4">
           {ingredients.map((ingredient, index) => (
             <div key={ingredient.id} className="flex items-center space-x-4 p-4 bg-white border border-gray-200 rounded-lg">
-              <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-sm font-semibold text-gray-600">
+              <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-sm font-semibold text-gray-600 font-body">
                 {index + 1}
               </div>
               
@@ -88,7 +88,21 @@ export default function ManualPage() {
                   placeholder="Ingredient name (e.g., Chicken breast)"
                   value={ingredient.name}
                   onChange={(e) => updateIngredient(ingredient.id, 'name', e.target.value)}
-                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none transition-all font-body"
+                  style={{
+                    borderColor: ingredient.name ? '#9cb481' : '#d1d5db',
+                    boxShadow: ingredient.name ? '0 0 0 3px rgba(156, 180, 129, 0.1)' : 'none'
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#9cb481';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(156, 180, 129, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    if (!e.target.value) {
+                      e.target.style.borderColor = '#d1d5db';
+                      e.target.style.boxShadow = 'none';
+                    }
+                  }}
                 />
                 
                 <input
@@ -96,7 +110,21 @@ export default function ManualPage() {
                   placeholder="Quantity (e.g., 2 lbs, 1 cup)"
                   value={ingredient.quantity}
                   onChange={(e) => updateIngredient(ingredient.id, 'quantity', e.target.value)}
-                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
+                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none transition-all font-body"
+                  style={{
+                    borderColor: ingredient.quantity ? '#9cb481' : '#d1d5db',
+                    boxShadow: ingredient.quantity ? '0 0 0 3px rgba(156, 180, 129, 0.1)' : 'none'
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = '#9cb481';
+                    e.target.style.boxShadow = '0 0 0 3px rgba(156, 180, 129, 0.1)';
+                  }}
+                  onBlur={(e) => {
+                    if (!e.target.value) {
+                      e.target.style.borderColor = '#d1d5db';
+                      e.target.style.boxShadow = 'none';
+                    }
+                  }}
                 />
               </div>
               
@@ -114,7 +142,7 @@ export default function ManualPage() {
           {/* Add Ingredient Button */}
           <button
             onClick={addIngredient}
-            className="flex items-center space-x-2 px-6 py-3 bg-white hover:bg-gray-50 border border-gray-200 rounded-lg text-gray-700 hover:text-gray-900 transition-all duration-300"
+            className="flex items-center space-x-2 px-6 py-3 bg-white hover:bg-gray-50 border border-gray-200 rounded-lg text-gray-700 hover:text-gray-900 transition-all duration-300 font-body"
           >
             <HiPlus className="w-5 h-5" />
             <span>Add Another Ingredient</span>
@@ -125,13 +153,13 @@ export default function ManualPage() {
             <button
               onClick={handleFindRecipes}
               disabled={!canContinue}
-              className={`flex items-center space-x-2 px-8 py-4 rounded-lg font-semibold transition-all duration-300 ${
+              className={`flex items-center space-x-2 px-8 py-4 rounded-lg font-semibold transition-all duration-300 font-body ${
                 canContinue
                   ? 'btn-primary'
                   : 'bg-gray-200 text-gray-500 cursor-not-allowed'
               }`}
             >
-              <span>Find Recipes</span>
+              <span>Continue to Preferences</span>
               <HiArrowRight className="w-5 h-5" />
             </button>
           </div>
@@ -140,18 +168,18 @@ export default function ManualPage() {
         {/* Tips */}
         <div className="mt-12 max-w-2xl mx-auto">
           <div className="card">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">💡 Tips for Better Results</h3>
-            <ul className="space-y-2 text-gray-700">
+            <h3 className="card-title text-gray-900 mb-4">💡 Tips for Better Results</h3>
+            <ul className="space-y-2 text-gray-700 font-body">
               <li className="flex items-start space-x-2">
-                <span className="text-emerald-500 mt-1">•</span>
+                <span className="mt-1" style={{ color: '#9cb481' }}>•</span>
                 <span>Be specific with ingredient names (e.g., "boneless chicken thighs" vs "chicken")</span>
               </li>
               <li className="flex items-start space-x-2">
-                <span className="text-emerald-500 mt-1">•</span>
+                <span className="mt-1" style={{ color: '#9cb481' }}>•</span>
                 <span>Include quantities when possible for more accurate recipe suggestions</span>
               </li>
               <li className="flex items-start space-x-2">
-                <span className="text-emerald-500 mt-1">•</span>
+                <span className="mt-1" style={{ color: '#9cb481' }}>•</span>
                 <span>Don't forget pantry staples like oils, spices, and condiments</span>
               </li>
             </ul>
